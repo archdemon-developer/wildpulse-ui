@@ -4,6 +4,7 @@ import WPLogo from "./Logo/WPLogo.vue";
 import WPNavBar from "./NavBar/WPNavBar.vue";
 import WPNavItems from "./NavBar/WPNavItems.vue";
 import WPNavItem from "./NavBar/WPNavItem.vue";
+import WPInput from "./Input/WPInput.vue";
 
 export {
   WPLogoImageLight,
@@ -12,4 +13,5 @@ export {
   WPNavBar,
   WPNavItems,
   WPNavItem,
+  WPInput,
 };
