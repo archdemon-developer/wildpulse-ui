@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { WPHeader } from '@/components'
+</script>
 
-<template>Hi!</template>
+<template><WPHeader /></template>
 
 <style scoped></style>
