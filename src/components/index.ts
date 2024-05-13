@@ -1,5 +1,5 @@
-import WPHeader from './WPHeader/WPHeader.vue'
-import WPNavigation from './WPHeader/WPNavigation.vue'
-import WPNavLogo from './WPHeader/WPNavLogo.vue'
+import WPHeader from './WPHeader.vue'
+import WPNavigation from './WPNavigation.vue'
+import WPNavLogo from './WPNavLogo.vue'
 
 export { WPHeader, WPNavigation, WPNavLogo }

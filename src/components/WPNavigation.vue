@@ -6,6 +6,10 @@
   </nav>
 </template>
 
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
+
 <style scoped>
 .wp-route {
   padding: 0 10px;
