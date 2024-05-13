@@ -13,6 +13,8 @@ import { WPNavLogo, WPNavigation } from '@/components'
 .wp-header {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 </style>
