@@ -26,7 +26,7 @@
 import { WPButton, WPVideo } from '@/components'
 
 interface HeroProps {
-  action: (payload: MouseEvent) => void
+  action: (payload?: MouseEvent) => void
   backgroundSource: string
 }
 

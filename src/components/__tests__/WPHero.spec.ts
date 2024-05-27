@@ -5,15 +5,14 @@ import WPVideo from '@/components/WPVideo.vue'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('WPHero', () => {
+  const propsData = {
+    action: vi.fn(),
+    backgroundSource: 'path/to/video.mp4'
+  }
+
+  const wrapper = mount(WPHero, { propsData })
+
   it('renders background video and content correctly', () => {
-    const propsData = {
-      action: vi.fn(),
-      backgroundSource: 'path/to/video.mp4'
-    }
-
-    const wrapper = mount(WPHero, { propsData })
-
-    // Assert WPVideo component exists and has correct props
     const wpVideo = wrapper.findComponent(WPVideo)
     expect(wpVideo.exists()).toBe(true)
     expect(wpVideo.props('autoplay')).toBe(true)
@@ -31,12 +30,6 @@ describe('WPHero', () => {
   })
 
   it('emits action event when button is clicked', async () => {
-    const propsData = {
-      action: vi.fn(),
-      backgroundSource: 'path/to/video.mp4'
-    }
-
-    const wrapper = mount(WPHero, { propsData })
     await wrapper.findComponent(WPButton).trigger('click')
     expect(propsData.action).toHaveBeenCalled()
   })

@@ -1,11 +1,12 @@
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import WPNavigation from '@/components/WPNavigation.vue'
 import WPNavLink from '@/components/WPNavLink.vue'
 import { describe, expect, it } from 'vitest'
+import router from '@/router'
 
 describe('WPNavigation', () => {
   it('renders navigation links for each route', () => {
-    const wrapper = shallowMount(WPNavigation, {
+    const wrapper = mount(WPNavigation, {
       props: {
         routes: [
           { path: '/forums', name: 'Forums' },
@@ -16,7 +17,8 @@ describe('WPNavigation', () => {
       global: {
         components: {
           WPNavLink
-        }
+        },
+        plugins: [router]
       }
     })
 

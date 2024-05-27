@@ -1,5 +1,5 @@
 <template>
-  <RouterLink to="props.to" class="wp-route">{{ props.name }}</RouterLink>
+  <RouterLink :to="props.to" class="wp-route">{{ props.name }}</RouterLink>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,7 @@
 <template>
-  <WPHero :action="routeToLogin" :background-source="heroVideo" />
+  <div class="main">
+    <WPHero :action="routeToLogin" :background-source="heroVideo" />
+  </div>
 </template>
 
 <script setup lang="ts">
