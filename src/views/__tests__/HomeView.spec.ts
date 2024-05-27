@@ -4,7 +4,7 @@ import { HomeView } from '@/views'
 import { createRouter, createWebHistory } from 'vue-router'
 import WPHero from '@/components/WPHero.vue' // Adjust the import according to your project structure
 
-describe('HomeView.vue', () => {
+describe('WPHomeView tests', () => {
   it('renders WPHero component with correct props', () => {
     const wrapper = mount(HomeView, {
       global: {
