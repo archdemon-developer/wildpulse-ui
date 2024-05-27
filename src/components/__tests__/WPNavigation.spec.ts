@@ -1,27 +1,35 @@
-/**
- * @vitest-environment happy-dom
- */
-import { WPNavigation } from '@/components'
 import { shallowMount } from '@vue/test-utils'
+import WPNavigation from '@/components/WPNavigation.vue'
+import WPNavLink from '@/components/WPNavLink.vue'
 import { describe, expect, it } from 'vitest'
-import { RouterLink } from 'vue-router'
 
-const NAV_LINKS = 3
+describe('WPNavigation', () => {
+  it('renders navigation links for each route', () => {
+    const wrapper = shallowMount(WPNavigation, {
+      props: {
+        routes: [
+          { path: '/forums', name: 'Forums' },
+          { path: '/blogs', name: 'Blogs' },
+          { path: '/start', name: 'Start' }
+        ]
+      },
+      global: {
+        components: {
+          WPNavLink
+        }
+      }
+    })
 
-describe('wildpulse navigation', () => {
-  const wrapper = shallowMount(WPNavigation)
+    const navLinks = wrapper.findAllComponents(WPNavLink)
+    expect(navLinks).toHaveLength(3)
 
-  it('has a routerlink component', () => {
-    expect(wrapper.findComponent(RouterLink).exists()).toBe(true)
-  })
+    expect(navLinks[0].props('to')).toBe('/forums')
+    expect(navLinks[0].props('name')).toBe('Forums')
 
-  it('has 3 routerlinks', () => {
-    expect(wrapper.findAllComponents(RouterLink)).toHaveLength(NAV_LINKS)
-  })
+    expect(navLinks[1].props('to')).toBe('/blogs')
+    expect(navLinks[1].props('name')).toBe('Blogs')
 
-  it('routes to the necessary pages', () => {
-    expect(wrapper.findAllComponents(RouterLink)[0].attributes()['to']).toEqual('/forums')
-    expect(wrapper.findAllComponents(RouterLink)[1].attributes()['to']).toEqual('/blogs')
-    expect(wrapper.findAllComponents(RouterLink)[2].attributes()['to']).toEqual('/start')
+    expect(navLinks[2].props('to')).toBe('/start')
+    expect(navLinks[2].props('name')).toBe('Start')
   })
 })
