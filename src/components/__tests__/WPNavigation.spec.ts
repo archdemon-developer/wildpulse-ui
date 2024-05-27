@@ -4,7 +4,7 @@ import WPNavLink from '@/components/WPNavLink.vue'
 import { describe, expect, it } from 'vitest'
 import router from '@/router'
 
-describe('WPNavigation', () => {
+describe('WPNavigation tests', () => {
   it('renders navigation links for each route', () => {
     const wrapper = mount(WPNavigation, {
       props: {
