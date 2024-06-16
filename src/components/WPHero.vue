@@ -38,8 +38,6 @@ const props: HeroProps = defineProps<HeroProps>()
   position: relative;
   display: flex;
   justify-content: space-around;
-  margin: 0 auto;
-  max-width: 1200px;
   align-items: center;
 }
 
