@@ -1,15 +1,28 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import { HomeView } from '@/views'
 import { createRouter, createWebHistory } from 'vue-router'
-import WPHero from '@/components/WPHero.vue' // Adjust the import according to your project structure
+import WPHero from '@/components/WPHero.vue'
+import { WPAboutCard } from '@/components'
 
 describe('HomeView.vue', () => {
   it('renders WPHero component with correct props', () => {
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: [
+        { path: '/start', name: 'start', redirect: '/start' },
+        { path: '/forums', name: 'View', redirect: '/forums' }
+      ]
+    })
     const wrapper = mount(HomeView, {
       global: {
+        plugins: [router],
         components: {
-          WPHero
+          WPHero,
+          WPAboutCard
         }
       }
     })
@@ -31,7 +44,8 @@ describe('HomeView.vue', () => {
       global: {
         plugins: [router],
         components: {
-          WPHero
+          WPHero,
+          WPAboutCard
         }
       }
     })

@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import WPButton from '@/components/WPButton.vue'
 import { describe, expect, it, vi } from 'vitest'

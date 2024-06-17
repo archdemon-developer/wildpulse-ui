@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import WPNavigation from '@/components/WPNavigation.vue'
 import WPNavLink from '@/components/WPNavLink.vue'

@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import WPHero from '@/components/WPHero.vue'
 import WPButton from '@/components/WPButton.vue'
