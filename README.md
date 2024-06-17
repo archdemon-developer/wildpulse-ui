@@ -7,7 +7,7 @@
 
 # Wildpulse
 
-This is a project which has been on my mind for sometime. It is a nature/biodiversity focussed social media platform which i am building to learn some concepts related to product engineering in general. This is the front-end. The backend code is still yet in development.
+This is a project which has been on my mind for sometime. It is a nature/biodiversity focussed social media platform which i am building to learn some concepts related to product engineering in general. This is the front-end. The backend code is available here: <https://github.com/archdemon-developer/wildpulse-backend>
 
 ## Technologies Used
 
