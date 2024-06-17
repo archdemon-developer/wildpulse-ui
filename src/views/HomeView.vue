@@ -2,138 +2,31 @@
   <div class="wp-main">
     <WPHero :action="routeToLogin" :background-source="heroVideo" />
     <section class="wp-about">
-      <WPCard v-for="card in cards" :key="card.id">
-        <template #header v-if="card.title">
-          {{ card.title }}
-        </template>
-        <template #media v-if="card.imgSrc">
-          <img class="wp-home-view-card-img" :src="card.imgSrc" :alt="card.imgAlt" />
-        </template>
-        <template #content>
-          <p>{{ card.content }}</p>
-        </template>
-        <template #footer>
-          <WPNavLink
-            v-for="action in card.actions"
-            :to="action.to"
-            :key="action.id"
-            :name="action.name"
-          />
-        </template>
-      </WPCard>
+      <!-- TODO: Move this to a list of cards based on the type of content to render -->
+      <WPAboutCard
+        :img-src="blogImg"
+        :img-alt="'card image'"
+        :actions="[
+          { to: '/forums', id: 1, name: 'View', variant: 'primary' },
+          { to: '/start', id: 2, name: 'Start', variant: 'secondary' }
+        ]"
+        :content="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, reiciendis possimus! Temporibus cum illum corporis necessitatibus nobis molestiae ut optio. Omnis vitae fugit sapiente eos obcaecati, atque iure ducimus facere?'"
+      />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { WPHero, WPCard, WPNavLink } from '@/components'
+import { WPHero, WPAboutCard } from '@/components'
 import heroVideo from '@/assets/wp-connecting-wildlife-bg.mp4'
-import cardBlogImg from '@/assets/wp-card-blog.png'
-import { useRouter, type RouteLocationRaw } from 'vue-router'
+import blogImg from '@/assets/wp-card-blog.png'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
 const routeToLogin = () => {
   router.push('/login')
 }
-
-interface Card {
-  id: number
-  title: string
-  imgSrc?: string
-  imgAlt?: string
-  content: string
-  actions: ActionProps[]
-}
-
-interface ActionProps {
-  id: number
-  to: RouteLocationRaw
-  name: string
-}
-
-const cards: Card[] = [
-  {
-    id: 1,
-    title: 'This is a card',
-    imgSrc: cardBlogImg,
-    imgAlt: 'Card image',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ipsa earum reprehenderit doloribus dicta soluta voluptatum labore ex laborum voluptatibus! Ratione reprehenderit ex ullam incidunt voluptate esse velit eum cum.',
-    actions: [
-      {
-        id: 1,
-        to: '/Forums',
-        name: 'View'
-      },
-      {
-        id: 2,
-        to: '/signup',
-        name: 'Start'
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: 'This is a card',
-    imgSrc: 'https://via.placeholder.com/150',
-    imgAlt: 'Card image',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ipsa earum reprehenderit doloribus dicta soluta voluptatum labore ex laborum voluptatibus! Ratione reprehenderit ex ullam incidunt voluptate esse velit eum cum.',
-    actions: [
-      {
-        id: 1,
-        to: '/Forums',
-        name: 'View'
-      },
-      {
-        id: 2,
-        to: '/signup',
-        name: 'Start'
-      }
-    ]
-  },
-  {
-    id: 3,
-    title: 'This is a card',
-    imgSrc: 'https://via.placeholder.com/150',
-    imgAlt: 'Card image',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ipsa earum reprehenderit doloribus dicta soluta voluptatum labore ex laborum voluptatibus! Ratione reprehenderit ex ullam incidunt voluptate esse velit eum cum.',
-    actions: [
-      {
-        id: 1,
-        to: '/Forums',
-        name: 'View'
-      },
-      {
-        id: 2,
-        to: '/signup',
-        name: 'Start'
-      }
-    ]
-  },
-  {
-    id: 4,
-    title: 'This is a card',
-    imgSrc: 'https://via.placeholder.com/150',
-    imgAlt: 'Card image',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ipsa earum reprehenderit doloribus dicta soluta voluptatum labore ex laborum voluptatibus! Ratione reprehenderit ex ullam incidunt voluptate esse velit eum cum.',
-    actions: [
-      {
-        id: 1,
-        to: '/Forums',
-        name: 'View'
-      },
-      {
-        id: 2,
-        to: '/signup',
-        name: 'Start'
-      }
-    ]
-  }
-]
 </script>
 
 <style scoped>
@@ -148,11 +41,5 @@ const cards: Card[] = [
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-}
-
-.wp-home-view-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 </style>

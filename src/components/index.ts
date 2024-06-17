@@ -6,5 +6,16 @@ import WPVideo from './WPVideo.vue'
 import WPButton from './WPButton.vue'
 import WPNavLink from './WPNavLink.vue'
 import WPCard from './WPCard.vue'
+import WPAboutCard from './WPAboutCard.vue'
 
-export { WPHeader, WPNavigation, WPNavLogo, WPHero, WPVideo, WPButton, WPNavLink, WPCard }
+export {
+  WPHeader,
+  WPNavigation,
+  WPNavLogo,
+  WPHero,
+  WPVideo,
+  WPButton,
+  WPNavLink,
+  WPCard,
+  WPAboutCard
+}

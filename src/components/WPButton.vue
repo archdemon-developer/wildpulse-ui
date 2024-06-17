@@ -23,9 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ColorVariant } from '@/shared/ts/types'
 import { computed } from 'vue'
-
-type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'green' | 'dark' | 'light'
 
 type ButtonSize = 'xs' | 'md' | 'lg'
 
@@ -35,7 +34,7 @@ interface ButtonProps {
   type: ButtonType
   disabled?: boolean
   loading?: boolean
-  variant?: ButtonVariant
+  variant?: ColorVariant
   size?: ButtonSize
   icon?: string
   block?: boolean
