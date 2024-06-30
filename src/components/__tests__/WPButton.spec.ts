@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 import WPButton from '@/components/WPButton.vue'
 import { describe, expect, it, vi } from 'vitest'
 
-describe('WPButton', () => {
+describe('wildpulse button tests', () => {
   it('emits click event when clicked', async () => {
     const wrapper = mount(WPButton)
     await wrapper.trigger('click')

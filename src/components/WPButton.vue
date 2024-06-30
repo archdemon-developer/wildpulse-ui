@@ -9,7 +9,6 @@
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="ariaLabel"
-    @click="props.click"
   >
     <template v-if="props.loading">
       <span class="wp-button__spinner"></span>
@@ -39,7 +38,6 @@ interface ButtonProps {
   icon?: string
   block?: boolean
   ariaLabel?: string
-  click: (payload: MouseEvent) => void
 }
 
 const props: ButtonProps = withDefaults(defineProps<ButtonProps>(), {

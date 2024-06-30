@@ -7,6 +7,7 @@ import WPButton from './WPButton.vue'
 import WPNavLink from './WPNavLink.vue'
 import WPCard from './WPCard.vue'
 import WPAboutCard from './WPAboutCard.vue'
+import WPFeatureCard from './WPFeatureCard.vue'
 
 export {
   WPHeader,
@@ -17,5 +18,6 @@ export {
   WPButton,
   WPNavLink,
   WPCard,
-  WPAboutCard
+  WPAboutCard,
+  WPFeatureCard
 }

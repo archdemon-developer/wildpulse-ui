@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { WPCard } from '@/components'
 import { mount } from '@vue/test-utils'
 
-describe('test wp card', () => {
+describe('wp base card tests', () => {
   it('renders default slot content', () => {
     const wrapper = mount(WPCard, {
       slots: {

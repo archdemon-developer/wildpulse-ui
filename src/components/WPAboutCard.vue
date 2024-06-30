@@ -1,5 +1,5 @@
 <template>
-  <WPCard class="wp-about-card">
+  <WPCard classes="wp-about-card">
     <template #header v-if="props.header">
       <h3 class="wp-about-card__header">{{ header }}</h3>
     </template>

@@ -1,20 +1,20 @@
 <template>
-  <div :class="['wp-card', props.classes]">
-    <div class="wp-card-header" v-if="$slots.header">
+  <div :class="[props.classes]">
+    <header v-if="$slots.header">
       <slot name="header"></slot>
-    </div>
-    <div class="wp-card-content" v-if="$slots.default">
-      <slot></slot>
-    </div>
-    <div class="wp-card-footer" v-if="$slots.footer">
+    </header>
+    <section v-if="$slots.default">
+      <slot name="default"></slot>
+    </section>
+    <footer v-if="$slots.footer">
       <slot name="footer"></slot>
-    </div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+// No specific props needed for this base card component
 import { defineProps } from 'vue'
-
 interface CardProps {
   classes?: string
 }
@@ -23,20 +23,4 @@ const props: CardProps = withDefaults(defineProps<CardProps>(), {
 })
 </script>
 
-<style scoped>
-.wp-card {
-  border: 1px solid #bbb;
-  border-radius: 5px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.wp-card-header,
-.wp-card-footer,
-.wp-card-content {
-  padding: 10px;
-}
-.wp-card-body {
-  padding: 10px;
-}
-</style>
+<style scoped></style>

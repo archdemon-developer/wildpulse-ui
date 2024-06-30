@@ -17,7 +17,12 @@
         spirit of nature. Let the world discover the wonders of rare species through your
         contributions.
       </p>
-      <WPButton type="button" variant="primary" :click="props.action">Start now</WPButton>
+      <div class="wp-hero-buttons">
+        <WPButton type="button" variant="primary" @click="props.action"> Start now </WPButton>
+        <WPButton type="button" variant="secondary" @click="props.action">
+          Checkout the forums
+        </WPButton>
+      </div>
     </div>
   </section>
 </template>
@@ -64,5 +69,14 @@ const props: HeroProps = defineProps<HeroProps>()
   font-size: 1.25rem;
   margin: 25px 0;
   max-width: 800px;
+}
+
+.wp-hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.wp-hero-buttons WPButton {
+  flex: 1;
 }
 </style>

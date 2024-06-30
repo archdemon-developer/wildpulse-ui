@@ -7,7 +7,7 @@ import WPButton from '@/components/WPButton.vue'
 import WPVideo from '@/components/WPVideo.vue'
 import { describe, expect, it, vi } from 'vitest'
 
-describe('WPHero', () => {
+describe('wildpulse hero section tests', () => {
   const propsData = {
     action: vi.fn(),
     backgroundSource: 'path/to/video.mp4'

@@ -7,7 +7,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { RouterLink } from 'vue-router'
 
-describe('wildpulse Navigation links', () => {
+describe('wildpulse navigation links tests', () => {
   const props = {
     to: '/forums',
     name: 'Forums'
