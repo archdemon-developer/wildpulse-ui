@@ -9,7 +9,6 @@
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="ariaLabel"
-    @click="props.click"
   >
     <template v-if="props.loading">
       <span class="wp-button__spinner"></span>
@@ -23,9 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ColorVariant } from '@/shared/ts/types'
 import { computed } from 'vue'
-
-type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'green' | 'dark' | 'light'
 
 type ButtonSize = 'xs' | 'md' | 'lg'
 
@@ -35,12 +33,11 @@ interface ButtonProps {
   type: ButtonType
   disabled?: boolean
   loading?: boolean
-  variant?: ButtonVariant
+  variant?: ColorVariant
   size?: ButtonSize
   icon?: string
   block?: boolean
   ariaLabel?: string
-  click: (payload: MouseEvent) => void
 }
 
 const props: ButtonProps = withDefaults(defineProps<ButtonProps>(), {

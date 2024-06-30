@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 
 const PATH_TO_LOGO = '/src/assets/wplogo-nav.png'
 
-describe('WPNavLogo Tests', () => {
+describe('wildpulse navlogo tests', () => {
   const wrapper = mount(WPNavLogo, {
     global: {
       plugins: [router]

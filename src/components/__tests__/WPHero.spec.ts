@@ -1,10 +1,13 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import WPHero from '@/components/WPHero.vue'
 import WPButton from '@/components/WPButton.vue'
 import WPVideo from '@/components/WPVideo.vue'
 import { describe, expect, it, vi } from 'vitest'
 
-describe('WPHero tests', () => {
+describe('wildpulse hero section tests', () => {
   const propsData = {
     action: vi.fn(),
     backgroundSource: 'path/to/video.mp4'

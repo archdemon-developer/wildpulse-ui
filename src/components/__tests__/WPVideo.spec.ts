@@ -1,8 +1,11 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPVideo } from '@/components'
 
-describe('WPVideo Tests', () => {
+describe('wildpulse video tests', () => {
   it('renders video with correct props', () => {
     const wrapper = mount(WPVideo, {
       props: {
