@@ -19,6 +19,8 @@
 import { WPHero, WPFeatureCard } from '@/components'
 import heroVideo from '@/assets/wp-connecting-wildlife-bg.mp4'
 import blogImg from '@/assets/wp-card-blog.png'
+import forumImg from '@/assets/wp-card-forums.png'
+import badgeImg from '@/assets/wp-card-badges.png'
 import { useRouter } from 'vue-router'
 import type { LinkAction } from '@/shared/ts/types'
 
@@ -40,53 +42,28 @@ interface Feature {
 const features: Feature[] = [
   {
     id: 1,
-    header: 'Global Wildlife Network',
+    header: 'Explore Our Blogs',
     imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
+    imgAlt: 'Blog Icon',
+    content: 'Read articles on various wildlife topics, written by experts and enthusiasts.',
+    actions: [{ id: 1, to: '/blogs', name: 'Read Blogs', variant: 'primary' }]
   },
   {
     id: 2,
-    header: 'Global Wildlife Network',
-    imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
+    header: 'Join Our Forums',
+    imgSrc: forumImg, // Assume forumsImg is defined similarly to blogImg
+    imgAlt: 'Forum Icon',
+    content: 'Participate in discussions with other nature lovers and share your experiences.',
+    actions: [{ id: 1, to: '/forums', name: 'Visit Forums', variant: 'primary' }]
   },
   {
     id: 3,
-    header: 'Global Wildlife Network',
-    imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
-  },
-  {
-    id: 4,
-    header: 'Global Wildlife Network',
-    imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
-  },
-  {
-    id: 5,
-    header: 'Global Wildlife Network',
-    imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
-  },
-  {
-    id: 6,
-    header: 'Global Wildlife Network',
-    imgSrc: blogImg,
-    imgAlt: 'Global Network Icon',
-    content: 'Connect with nature lovers worldwide. Share discoveries and exchange knowledge.',
-    actions: [{ id: 1, to: '/learn-more', name: 'Learn More', variant: 'primary' }]
+    header: 'Earn Badges',
+    imgSrc: badgeImg, // Assume badgesImg is defined similarly to blogImg
+    imgAlt: 'Badge Icon',
+    content: 'Get recognized for your contributions and achievements within the community.',
+    actions: [{ id: 1, to: '/badges', name: 'View Badges', variant: 'primary' }]
   }
-  // Add more features as needed
 ]
 </script>
 
