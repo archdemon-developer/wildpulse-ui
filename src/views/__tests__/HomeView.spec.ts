@@ -8,7 +8,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import WPHero from '@/components/WPHero.vue'
 import { WPAboutCard } from '@/components'
 
-describe('home page view tests', () => {
+describe('Home page view tests', () => {
   it('renders WPHero component with correct props', () => {
     const router = createRouter({
       history: createWebHistory(),
@@ -51,7 +51,7 @@ describe('home page view tests', () => {
     })
 
     const wpHero = wrapper.findComponent(WPHero)
-    await wpHero.props('action')()
+    await wpHero.props('primaryAction')()
     expect(push).toHaveBeenCalledWith('/login')
   })
 })

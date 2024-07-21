@@ -4,7 +4,7 @@ import { WPAboutCard, WPNavLink } from '@/components'
 import type { LinkAction } from '@/shared/ts/types'
 import router from '@/router'
 
-describe('wp about card tests', () => {
+describe('wildpulse about card tests', () => {
   it('renders header slot content', () => {
     const wrapper = mount(WPAboutCard, {
       props: {
@@ -19,6 +19,14 @@ describe('wp about card tests', () => {
       props: {
         imgSrc: 'test.jpg',
         imgAlt: 'Test Image'
+      },
+      global: {
+        stubs: {
+          WPImage: {
+            template: '<img :src="src" :alt="alt" class="wp-about-card__img"/>',
+            props: ['src', 'alt']
+          }
+        }
       }
     })
     const img = wrapper.find('img.wp-about-card__img')
@@ -78,7 +86,13 @@ describe('wp about card tests', () => {
         components: {
           WPNavLink
         },
-        plugins: [router]
+        plugins: [router],
+        stubs: {
+          WPImage: {
+            template: '<img :src="src" :alt="alt" class="wp-about-card__img"/>',
+            props: ['src', 'alt']
+          }
+        }
       }
     })
     expect(wrapper.find('.wp-about-card__header').text()).toBe('Test Header')

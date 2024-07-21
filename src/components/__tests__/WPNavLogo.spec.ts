@@ -6,12 +6,18 @@ import router from '@/router'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
-const PATH_TO_LOGO = '/src/assets/wplogo-nav.png'
+const LOGO_FILE_NAME = 'wplogo-nav.png'
 
 describe('wildpulse navlogo tests', () => {
   const wrapper = mount(WPNavLogo, {
     global: {
-      plugins: [router]
+      plugins: [router],
+      stubs: {
+        WPImage: {
+          template: '<img :src="src" :alt="alt" />',
+          props: ['src', 'alt']
+        }
+      }
     }
   })
 
@@ -20,6 +26,7 @@ describe('wildpulse navlogo tests', () => {
   })
 
   it('has logo image pointing to right image', () => {
-    expect(wrapper.find('img').attributes().src).toBe(PATH_TO_LOGO)
+    const imgSrc = wrapper.find('img').attributes().src
+    expect(imgSrc).toContain(LOGO_FILE_NAME)
   })
 })

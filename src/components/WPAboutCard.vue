@@ -4,7 +4,7 @@
       <h3 class="wp-about-card__header">{{ header }}</h3>
     </template>
     <template #default v-if="props.imgSrc || props.content">
-      <img v-if="imgSrc" :src="imgSrc" :alt="imgAlt" class="wp-about-card__img" />
+      <WPImage v-if="imgSrc" :src="imgSrc" :alt="imgAlt" classes="wp-about-card__img" />
       <p v-if="content" class="wp-about-card__content">{{ content }}</p>
     </template>
     <template #footer v-if="props.actions">
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { WPCard, WPNavLink } from '@/components'
+import { WPCard, WPImage, WPNavLink } from '@/components'
 import type { LinkAction } from '@/shared/ts/types'
 
 interface AboutCardProps {

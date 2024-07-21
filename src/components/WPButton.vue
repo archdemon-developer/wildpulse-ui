@@ -12,12 +12,9 @@
   >
     <template v-if="props.loading">
       <span class="wp-button__spinner"></span>
-      <span class="wp-button__spinner-text">Loading</span>
     </template>
-    <template v-else>
-      <i v-if="icon" :class="['wp-button__icon', icon]"></i>
-      <slot></slot>
-    </template>
+    <i v-if="icon" :class="['wp-button__icon', icon]"></i>
+    <slot></slot>
   </button>
 </template>
 
@@ -161,10 +158,7 @@ const sizeClass = computed(() => `wp-button--${props.size}`)
   border-top: 2px solid var(--white);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-}
-
-.wp-button__spinner-text {
-  padding-left: 10px;
+  margin-right: 10px;
 }
 
 .wp-button__icon {

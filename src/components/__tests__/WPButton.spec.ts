@@ -89,6 +89,5 @@ describe('wildpulse button tests', () => {
     })
 
     expect(wrapper.find('.wp-button__spinner').exists()).toBe(true)
-    expect(wrapper.find('.wp-button__spinner-text').exists()).toBe(true)
   })
 })
