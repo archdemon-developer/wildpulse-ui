@@ -25,6 +25,7 @@
     <section class="wp-subscribe">
       <WPSubscribe :header="subscribe.header" :description="subscribe.description" />
     </section>
+    <WPInput :type="'checkbox'" :label="'I am a checkbox'" />
   </div>
 </template>
 
@@ -36,6 +37,7 @@ import forumImg from '@/assets/wp-card-forums.png'
 import badgeImg from '@/assets/wp-card-badges.png'
 import { useRouter } from 'vue-router'
 import type { Hero, LinkAction } from '@/shared/ts/types'
+import WPInput from '@/components/WPInput.vue'
 
 const router = useRouter()
 

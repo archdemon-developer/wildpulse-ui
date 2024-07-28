@@ -1,5 +1,11 @@
 <template>
-  <component :is="componentType" v-bind="inputProps" :class="computedClass" />
+  <label v-if="isInlineLabel" :class="labelClass">
+    <component :is="componentType" v-bind="inputProps" :class="inputClass" />
+    <span>{{ label }}</span>
+  </label>
+  <div v-else :class="containerClass">
+    <component :is="componentType" v-bind="inputProps" :class="inputClass" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,6 +25,7 @@ interface InputProps {
   rows?: number
   cols?: number
   class?: string
+  label?: string
 }
 
 const props = defineProps<InputProps>()
@@ -33,13 +40,13 @@ const inputProps = computed(() => {
     name: props.name,
     id: props.id,
     disabled: props.disabled,
-    required: props.required
+    required: props.required,
+    value: props.value
   }
 
   if (props.type === 'textarea') {
     return {
       ...commonProps,
-      value: props.value,
       rows: props.rows,
       cols: props.cols
     }
@@ -55,24 +62,42 @@ const inputProps = computed(() => {
 
   return {
     ...commonProps,
-    type: props.type,
-    value: props.value
+    type: props.type
   }
 })
 
-const computedClass = computed(() => {
-  return props.class ? props.class : 'wp-input'
+const inputClass = computed(() => {
+  const baseClass = ['text', 'email', 'textarea', 'password', 'number'].includes(props.type)
+    ? 'wp-input'
+    : 'wp-input-inline'
+  return props.class ? `${baseClass} ${props.class}` : baseClass
+})
+
+const labelClass = computed(() => {
+  return 'wp-label-inline'
+})
+
+const isInlineLabel = computed(() => {
+  return props.type === 'checkbox' || props.type === 'radio'
+})
+
+const containerClass = computed(() => {
+  return isInlineLabel.value ? '' : 'wp-input-container'
 })
 </script>
 
 <style scoped>
+.wp-input-container {
+  width: 100%;
+}
+
 .wp-input {
-  flex: 1;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .wp-input::placeholder {
@@ -81,7 +106,26 @@ const computedClass = computed(() => {
 
 .wp-input:focus {
   outline: none;
-  border-color: var(--secondary-dark);
-  box-shadow: 0 0 5px rgba(var(--secondary-dark), 0.5);
+  border-color: var(--secondary-light);
+  box-shadow: 0 0 5px rgba(var(--secondary-light), 0.5);
+}
+
+.wp-input-inline {
+  padding: 5px;
+  width: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.wp-label-inline {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wp-label-inline span {
+  margin-left: 5px;
+  font-size: 14px;
+  color: var(--text-color);
 }
 </style>

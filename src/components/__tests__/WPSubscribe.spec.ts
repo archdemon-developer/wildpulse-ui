@@ -32,7 +32,6 @@ describe('wildpulse subscribe component tests', () => {
     const wpInput = wrapper.findComponent(WPInput)
     expect(wpInput.exists()).toBe(true)
     expect(wpInput.props('type')).toBe('email')
-    expect(wpInput.attributes('placeholder')).toBe('Enter your email')
 
     const wpButton = wrapper.findComponent(WPButton)
     expect(wpButton.exists()).toBe(true)

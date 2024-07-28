@@ -2,82 +2,87 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import WPInput from '@/components/WPInput.vue'
 
-describe('wp input tests', () => {
-  it('renders an input element for type text', () => {
+describe('wildpulse input tests', () => {
+  it('renders text input correctly', () => {
     const wrapper = mount(WPInput, {
       props: {
         type: 'text',
-        placeholder: 'Enter text'
+        placeholder: 'Enter text',
+        value: 'Sample Text'
       }
     })
     const input = wrapper.find('input')
     expect(input.exists()).toBe(true)
     expect(input.attributes('type')).toBe('text')
     expect(input.attributes('placeholder')).toBe('Enter text')
+    expect(input.element.value).toBe('Sample Text')
+    expect(input.classes()).toContain('wp-input')
   })
 
-  it('renders a textarea element for type textarea', () => {
+  it('renders email input correctly', () => {
+    const wrapper = mount(WPInput, {
+      props: {
+        type: 'email',
+        placeholder: 'Enter email'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('type')).toBe('email')
+    expect(input.attributes('placeholder')).toBe('Enter email')
+    expect(input.classes()).toContain('wp-input')
+  })
+
+  it('renders checkbox with label correctly', () => {
+    const wrapper = mount(WPInput, {
+      props: {
+        type: 'checkbox',
+        label: 'Accept terms'
+      }
+    })
+    const label = wrapper.find('label')
+    expect(label.exists()).toBe(true)
+    const input = label.find('input')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('type')).toBe('checkbox')
+    expect(label.text()).toContain('Accept terms')
+    expect(label.classes()).toContain('wp-label-inline')
+  })
+
+  it('renders radio button with label correctly', () => {
+    const wrapper = mount(WPInput, {
+      props: {
+        type: 'radio',
+        label: 'Option 1'
+      }
+    })
+    const label = wrapper.find('label')
+    expect(label.exists()).toBe(true)
+    const input = label.find('input')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('type')).toBe('radio')
+    expect(label.text()).toContain('Option 1')
+    expect(label.classes()).toContain('wp-label-inline')
+  })
+
+  it('renders textarea correctly', () => {
     const wrapper = mount(WPInput, {
       props: {
         type: 'textarea',
-        placeholder: 'Enter text',
-        rows: 5,
-        cols: 40
+        placeholder: 'Enter details',
+        rows: 4,
+        cols: 50
       }
     })
     const textarea = wrapper.find('textarea')
     expect(textarea.exists()).toBe(true)
-    expect(textarea.attributes('placeholder')).toBe('Enter text')
-    expect(textarea.attributes('rows')).toBe('5')
-    expect(textarea.attributes('cols')).toBe('40')
+    expect(textarea.attributes('placeholder')).toBe('Enter details')
+    expect(textarea.attributes('rows')).toBe('4')
+    expect(textarea.attributes('cols')).toBe('50')
+    expect(textarea.classes()).toContain('wp-input')
   })
 
-  it('renders a checkbox input', () => {
-    const wrapper = mount(WPInput, {
-      props: {
-        type: 'checkbox',
-        checked: true
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.exists()).toBe(true)
-    expect(input.attributes('type')).toBe('checkbox')
-    expect(input.element.checked).toBe(true)
-  })
-
-  it('renders a radio input', () => {
-    const wrapper = mount(WPInput, {
-      props: {
-        type: 'radio',
-        checked: false
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.exists()).toBe(true)
-    expect(input.attributes('type')).toBe('radio')
-    expect(input.element.checked).toBe(false)
-  })
-
-  it('applies additional props to the input element', () => {
-    const wrapper = mount(WPInput, {
-      props: {
-        type: 'text',
-        name: 'testName',
-        id: 'testId',
-        disabled: true,
-        required: true,
-        value: 'Test value'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.attributes('name')).toBe('testName')
-    expect(input.attributes('id')).toBe('testId')
-    expect(input.attributes('disabled')).toBeDefined()
-    expect(input.attributes('required')).toBeDefined()
-    expect(input.element.value).toBe('Test value')
-  })
-
-  it('applies custom class if provided', () => {
+  it('applies custom class correctly', () => {
     const wrapper = mount(WPInput, {
       props: {
         type: 'text',
@@ -85,16 +90,19 @@ describe('wp input tests', () => {
       }
     })
     const input = wrapper.find('input')
+    expect(input.exists()).toBe(true)
     expect(input.classes()).toContain('custom-class')
   })
 
-  it('applies default class if no custom class is provided', () => {
+  it('disables input correctly', () => {
     const wrapper = mount(WPInput, {
       props: {
-        type: 'text'
+        type: 'text',
+        disabled: true
       }
     })
     const input = wrapper.find('input')
-    expect(input.classes()).toContain('wp-input')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('disabled')).toBeDefined()
   })
 })

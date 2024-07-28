@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-// No specific props needed for this base card component
-import { defineProps } from 'vue'
 interface CardProps {
   classes?: string
 }
