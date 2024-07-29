@@ -15,6 +15,11 @@ interface Hero {
   secondaryAction: (payload?: MouseEvent) => void
 }
 
+interface Route {
+  path: string
+  name: string
+}
+
 type ColorVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'green' | 'dark' | 'light'
 
-export type { LinkAction, ColorVariant, Hero }
+export type { LinkAction, ColorVariant, Hero, Route }

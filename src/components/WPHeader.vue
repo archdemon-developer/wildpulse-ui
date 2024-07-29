@@ -1,12 +1,19 @@
 <template>
   <header class="wp-header">
     <WPNavLogo />
-    <WPNavigation />
+    <WPNavigation :routes="props.navRoutes" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { WPNavLogo, WPNavigation } from '@/components'
+import type { Route } from '@/shared/ts/types'
+
+interface HeaderProps {
+  navRoutes: Route[]
+}
+
+const props: HeaderProps = defineProps<HeaderProps>()
 </script>
 
 <style scoped>

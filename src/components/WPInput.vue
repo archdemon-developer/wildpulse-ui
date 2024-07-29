@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 
 type InputType = 'text' | 'email' | 'radio' | 'checkbox' | 'textarea' | 'password' | 'number'
 
@@ -28,9 +28,9 @@ interface InputProps {
   label?: string
 }
 
-const props = defineProps<InputProps>()
+const props: InputProps = defineProps<InputProps>()
 
-const componentType = computed(() => {
+const componentType: ComputedRef<'textarea' | 'input'> = computed(() => {
   return props.type === 'textarea' ? 'textarea' : 'input'
 })
 
@@ -66,22 +66,22 @@ const inputProps = computed(() => {
   }
 })
 
-const inputClass = computed(() => {
+const inputClass: ComputedRef<string> = computed(() => {
   const baseClass = ['text', 'email', 'textarea', 'password', 'number'].includes(props.type)
     ? 'wp-input'
     : 'wp-input-inline'
   return props.class ? `${baseClass} ${props.class}` : baseClass
 })
 
-const labelClass = computed(() => {
+const labelClass: ComputedRef<string> = computed(() => {
   return 'wp-label-inline'
 })
 
-const isInlineLabel = computed(() => {
+const isInlineLabel: ComputedRef<boolean> = computed(() => {
   return props.type === 'checkbox' || props.type === 'radio'
 })
 
-const containerClass = computed(() => {
+const containerClass: ComputedRef<'' | 'wp-input-container'> = computed(() => {
   return isInlineLabel.value ? '' : 'wp-input-container'
 })
 </script>

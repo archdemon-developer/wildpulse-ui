@@ -25,19 +25,20 @@
     <section class="wp-subscribe">
       <WPSubscribe :header="subscribe.header" :description="subscribe.description" />
     </section>
-    <WPInput :type="'checkbox'" :label="'I am a checkbox'" />
+    <footer class="wp-footer">
+      <WPFooter :year="footer.year" :footerText="footer.footerText" :links="footer.links" />
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { WPHero, WPFeatureCard, WPSubscribe } from '@/components'
+import { WPHero, WPFeatureCard, WPSubscribe, WPFooter } from '@/components'
 import heroVideo from '@/assets/wp-connecting-wildlife-bg.mp4'
 import blogImg from '@/assets/wp-card-blog.png'
 import forumImg from '@/assets/wp-card-forums.png'
 import badgeImg from '@/assets/wp-card-badges.png'
 import { useRouter } from 'vue-router'
-import type { Hero, LinkAction } from '@/shared/ts/types'
-import WPInput from '@/components/WPInput.vue'
+import type { Hero, LinkAction, Route as FooterLink } from '@/shared/ts/types'
 
 const router = useRouter()
 
@@ -101,6 +102,17 @@ const subscribe: Subscribe = {
   header: 'Subscribe',
   description: 'Instead of signing up, try our newsletter first!'
 }
+
+const footer = {
+  year: new Date().getFullYear(),
+  footerText: 'Wildpulse',
+  links: [
+    { path: '/about', name: 'About Us' },
+    { path: '/contact', name: 'Contact' },
+    { path: '/privacy', name: 'Privacy Policy' },
+    { path: '/terms', name: 'Terms of Service' }
+  ] as FooterLink[]
+}
 </script>
 
 <style scoped>
@@ -130,5 +142,12 @@ const subscribe: Subscribe = {
   padding: 40px 20px;
   margin: 0 auto;
   text-align: center;
+}
+
+.wp-footer {
+  padding: 20px;
+  text-align: center;
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
 }
 </style>

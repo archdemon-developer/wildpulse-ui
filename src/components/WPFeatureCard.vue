@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import { WPButton, WPCard, WPImage } from '@/components'
 import { useRouter } from 'vue-router'
 import type { LinkAction } from '@/shared/ts/types'

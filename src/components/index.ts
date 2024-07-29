@@ -11,6 +11,7 @@ import WPFeatureCard from './WPFeatureCard.vue'
 import WPImage from './WPImage.vue'
 import WPInput from './WPInput.vue'
 import WPSubscribe from './WPSubscribe.vue'
+import WPFooter from './WPFooter.vue'
 
 export {
   WPHeader,
@@ -25,5 +26,6 @@ export {
   WPFeatureCard,
   WPImage,
   WPInput,
-  WPSubscribe
+  WPSubscribe,
+  WPFooter
 }
