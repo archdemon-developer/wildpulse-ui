@@ -18,7 +18,8 @@ export default mergeConfig(
           'src/main.ts',
           'src/router/**',
           '**.eslintrc.cjs**'
-        ]
+        ],
+        reporter: ['json', 'lcov', 'text'] // Ensure the coverage is reported in desired formats
       }
     }
   })
