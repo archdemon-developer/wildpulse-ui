@@ -10,16 +10,17 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
-        provider: 'istanbul',
+        provider: 'istanbul', 
         exclude: [
           ...configDefaults.exclude,
-          'e2e/**',
-          'src/App.vue',
-          'src/main.ts',
-          'src/router/**',
-          '**.eslintrc.cjs**'
+          'e2e/**',           
+          'src/App.vue',      
+          'src/main.ts',      
+          'src/router/**',    
+          '**/*.eslintrc.cjs**', 
+          '**/*.spec.ts'    
         ],
-        reporter: ['json', 'lcov', 'text'] // Ensure the coverage is reported in desired formats
+        reporter: ['json', 'lcov', 'text'] 
       }
     }
   })

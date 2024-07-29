@@ -20,28 +20,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Install dependencies
         run: npm install
-
       - name: Run tests with coverage
         run: npm run coverage
-
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage
-
       - name: Check coverage
         run: |
-          COVERAGE=$(grep -oP '(?<=Statements: )\d+\.\d+' coverage/coverage-summary.json)
-          echo "Coverage: $COVERAGE"
+          COVERAGE_FILE="coverage/coverage-final.json"
+          TOTAL_STATEMENTS=$(jq -r 'reduce .[] as $item (0; . + $item.s.total) // 0' $COVERAGE_FILE)
+          COVERED_STATEMENTS=$(jq -r 'reduce .[] as $item (0; . + $item.s.covered) // 0' $COVERAGE_FILE)
+          COVERAGE=$(echo "scale=2; ($COVERED_STATEMENTS / $TOTAL_STATEMENTS) * 100" | bc)
+          echo "Coverage: $COVERAGE%"
           if (( $(echo "$COVERAGE < 90" | bc -l) )); then
             echo "Coverage is below 90%"
             exit 1
