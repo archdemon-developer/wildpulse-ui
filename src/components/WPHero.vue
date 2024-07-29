@@ -1,5 +1,5 @@
 <template>
-  <section class="wp-hero">
+  <div class="wp-hero">
     <WPVideo
       :autoplay="true"
       :loop="true"
@@ -9,43 +9,28 @@
       type="video/mp4"
     />
     <div class="wp-hero-content">
-      <h1 class="wp-hero-header">
-        Unlimited Wildlife Connection: Join enthusiasts worldwide to share discoveries.
-      </h1>
-      <p class="wp-hero-description">
-        Engage in lively discussion and debate about your wildlife findings, embracing the true
-        spirit of nature. Let the world discover the wonders of rare species through your
-        contributions.
-      </p>
+      <h1 class="wp-hero-header">{{ props.header }}</h1>
+      <p class="wp-hero-description">{{ props.description }}</p>
       <div class="wp-hero-buttons">
-        <WPButton type="button" variant="primary" @click="props.action"> Start now </WPButton>
-        <WPButton type="button" variant="secondary" @click="props.action">
-          Checkout the forums
+        <WPButton type="button" variant="primary" @click="primaryAction">
+          {{ props.primaryButtonText }}
+        </WPButton>
+        <WPButton type="button" variant="secondary" @click="secondaryAction">
+          {{ props.secondaryButtonText }}
         </WPButton>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { WPButton, WPVideo } from '@/components'
-
-interface HeroProps {
-  action: (payload?: MouseEvent) => void
-  backgroundSource: string
-}
+import type { Hero as HeroProps } from '@/shared/ts/types'
 
 const props: HeroProps = defineProps<HeroProps>()
 </script>
 
 <style scoped>
-.wp-hero {
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .wp-hero-video {
   position: absolute;
   top: 0;

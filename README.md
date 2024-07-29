@@ -96,11 +96,11 @@ For formatting the code (the project uses prettier), run:
 
 **Essential Features:**
 
-More will be added to this list as and when developed.
+- Login/Signup Page
 
 **Optional Features**
 
-Will update this as i think of more usecases.
+- Extend for social media
 
 ## Acknowledgements
 

@@ -5,10 +5,9 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import { HomeView } from '@/views'
 import { createRouter, createWebHistory } from 'vue-router'
-import WPHero from '@/components/WPHero.vue'
-import { WPAboutCard } from '@/components'
+import { WPHero, WPFeatureCard, WPSubscribe, WPFooter } from '@/components'
 
-describe('home page view tests', () => {
+describe('wildpulse home page view tests', () => {
   it('renders WPHero component with correct props', () => {
     const router = createRouter({
       history: createWebHistory(),
@@ -22,7 +21,7 @@ describe('home page view tests', () => {
         plugins: [router],
         components: {
           WPHero,
-          WPAboutCard
+          WPFeatureCard
         }
       }
     })
@@ -36,7 +35,10 @@ describe('home page view tests', () => {
     const push = vi.fn()
     const router = createRouter({
       history: createWebHistory(),
-      routes: [{ path: '/login', name: 'login', redirect: '/' }]
+      routes: [
+        { path: '/login', name: 'login', redirect: '/' },
+        { path: '/forums', name: 'forums', redirect: '/forums' }
+      ]
     })
     router.push = push
 
@@ -45,13 +47,71 @@ describe('home page view tests', () => {
         plugins: [router],
         components: {
           WPHero,
-          WPAboutCard
+          WPFeatureCard
         }
       }
     })
 
     const wpHero = wrapper.findComponent(WPHero)
-    await wpHero.props('action')()
+    await wpHero.props('primaryAction')()
     expect(push).toHaveBeenCalledWith('/login')
+
+    await wpHero.props('secondaryAction')()
+    expect(push).toHaveBeenCalledWith('/forums')
+  })
+
+  it('renders WPSubscribe component with correct props', () => {
+    const wrapper = mount(HomeView, {
+      global: {
+        components: {
+          WPHero,
+          WPFeatureCard,
+          WPSubscribe
+        }
+      }
+    })
+
+    const wpSubscribe = wrapper.findComponent(WPSubscribe)
+    expect(wpSubscribe.exists()).toBe(true)
+    expect(wpSubscribe.props('header')).toBe('Subscribe')
+    expect(wpSubscribe.props('description')).toBe(
+      'Instead of signing up, try our newsletter first!'
+    )
+  })
+
+  it('renders WPFooter component with correct props', () => {
+    const wrapper = mount(HomeView, {
+      global: {
+        components: {
+          WPHero,
+          WPFeatureCard,
+          WPSubscribe,
+          WPFooter // Include WPFooter in the global components
+        }
+      },
+      props: {
+        footer: {
+          year: 2024,
+          footerText: 'Wildpulse',
+          links: [
+            { path: '/about', name: 'About Us' },
+            { path: '/contact', name: 'Contact' },
+            { path: '/privacy', name: 'Privacy Policy' },
+            { path: '/terms', name: 'Terms of Service' }
+          ]
+        }
+      }
+    })
+
+    const wpFooter = wrapper.findComponent(WPFooter)
+    expect(wpFooter.exists()).toBe(true)
+    expect(wpFooter.props('year')).toBe(2024)
+    expect(wpFooter.props('footerText')).toBe('Wildpulse')
+    expect(wpFooter.props('links')).toEqual([
+      { path: '/about', name: 'About Us' },
+      { path: '/contact', name: 'Contact' },
+      { path: '/privacy', name: 'Privacy Policy' },
+      { path: '/terms', name: 'Terms of Service' }
+    ])
   })
 })

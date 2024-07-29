@@ -2,7 +2,7 @@
   <WPCard classes="wp-feature-card" @mouseenter="flipped = true" @mouseleave="flipped = false">
     <template #header>
       <div :class="['wp-card-face', 'wp-card-front', { flipped: flipped }]">
-        <img :src="props.imgSrc" :alt="props.imgAlt" class="wp-feature-icon" />
+        <WPImage :src="props.imgSrc" :alt="props.imgAlt" classes="wp-feature-icon" />
         <h3>{{ props.header }}</h3>
       </div>
     </template>
@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
-import { WPButton, WPCard } from '@/components'
+import { ref } from 'vue'
+import { WPButton, WPCard, WPImage } from '@/components'
 import { useRouter } from 'vue-router'
 import type { LinkAction } from '@/shared/ts/types'
 

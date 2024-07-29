@@ -5,19 +5,21 @@ import { WPButton } from '@/components'
 import { createRouter, createWebHistory } from 'vue-router'
 import { nextTick } from 'vue'
 
-// Mock the components
 vi.mock('@/components', () => ({
   WPButton: { template: '<button><slot /></button>' },
+  WPImage: {
+    template: '<img :src="src" :alt="alt" class="wp-feature-icon"/>',
+    props: ['src', 'alt']
+  },
   WPCard: { template: '<div><slot name="header" /><slot /></div>' }
 }))
 
-// Mock the router
 const router = createRouter({
   history: createWebHistory(),
   routes: [{ path: '/', component: { template: '<div>Home</div>' } }]
 })
 
-describe('WPFeatureCard', () => {
+describe('wildpulse feature card tests', () => {
   beforeEach(() => {
     router.push('/')
     router.isReady()
