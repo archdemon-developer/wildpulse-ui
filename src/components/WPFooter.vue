@@ -26,7 +26,7 @@ const props = defineProps<{
 .wp-footer__content p {
   margin: 0;
   font-size: 0.875rem;
-  color: #333;
+  color: var(--black);
 }
 
 .wp-footer__links {
