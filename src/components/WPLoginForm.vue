@@ -4,7 +4,12 @@
       <h1>Welcome Back!</h1>
       <p>Pick up your journey from where you left off.</p>
     </div>
-    <WPAlert v-if="alert.message" :message="alert.message" :type="alert.type" />
+    <WPAlert
+      v-if="alert.message"
+      :message="alert.message"
+      :type="alert.type"
+      :duration="alert.duration"
+    />
     <form @submit.prevent="handleSubmit" class="wp-sign-in__form">
       <WPTextInput
         v-model="formData.email"
@@ -71,7 +76,8 @@ const { formData, errors, resetForm, clearErrors, isValidEmail } = useForm<FormD
 
 const alert = reactive({
   message: '',
-  type: 'error' as 'success' | 'error' | 'info' | 'warning'
+  type: 'error' as 'success' | 'error' | 'info' | 'warning',
+  duration: 3000
 })
 
 const authStore = useAuthStore()

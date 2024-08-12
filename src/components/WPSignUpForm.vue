@@ -4,6 +4,12 @@
       <h1>Join Us!</h1>
       <p>Create a new account to get started.</p>
     </div>
+    <WPAlert
+      v-if="alert.message"
+      :message="alert.message"
+      :type="alert.type"
+      :duration="alert.duration"
+    />
     <form @submit.prevent="handleSubmit" class="wp-sign-up__form">
       <WPTextInput
         v-model="formData.email"
@@ -55,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useForm } from '@/composables/useForm'
 import { WPTextInput, WPButton, WPActionLink } from '@/components'
 import { useAuthStore } from '@/stores/auth'
@@ -69,7 +75,13 @@ interface FormData {
   confirmPassword: string
 }
 
-const { formData, errors, clearErrors, isValidEmail } = useForm<FormData>({
+const alert = reactive({
+  message: '',
+  type: 'error' as 'success' | 'error' | 'info' | 'warning',
+  duration: 3000
+})
+
+const { formData, resetForm, errors, clearErrors, isValidEmail } = useForm<FormData>({
   username: '',
   email: '',
   password: '',
@@ -98,9 +110,13 @@ const handleSubmit = async () => {
   if (Object.values(errors).every((error) => !error)) {
     try {
       await signup(formData.email, formData.password, formData.username)
-      alert('Successfully registered')
+      alert.message = 'Signup Successful'
+      alert.type = 'success'
     } catch (err: any) {
-      alert(err.message || 'Registration failed.')
+      alert.message = err.message || 'Signup failed.'
+      alert.type = 'error'
+    } finally {
+      resetForm()
     }
   }
 }
@@ -166,7 +182,7 @@ const validateForm = () => {
 
 .password-field input {
   width: 100%;
-  padding-right: 2.5rem; /* Adjust based on icon size */
+  padding-right: 2.5rem;
 }
 
 .password-toggle-icon {

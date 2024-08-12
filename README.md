@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" height="300" src="./src/assets/logo.svg">
+  <img width="300" height="300" src="./src/assets/logo.svg" alt="wp-logo-img">
 </p>
 
 > **Note**
@@ -99,7 +99,7 @@ For formatting the code (the project uses prettier), run:
 
 - Login/Signup Page - in progress - integration with GCP Identity platform completed.
 
-**Optional Features**
+**Optional Features:**
 
 - Extend for social media
 

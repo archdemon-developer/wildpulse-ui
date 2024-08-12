@@ -1,12 +1,14 @@
 <template>
-  <div v-if="visible" class="wp-alert" :class="`wp-alert--${type}`">
-    <span class="wp-alert__message">{{ message }}</span>
-    <button class="wp-alert__close" @click="closeAlert">×</button>
-  </div>
+  <transition name="fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+    <div v-if="visible" class="wp-alert" :class="`wp-alert--${type}`">
+      <span class="wp-alert__message">{{ message }}</span>
+      <button class="wp-alert__close" @click="closeAlert">×</button>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 interface WPAlertProps {
   message: string
@@ -16,10 +18,14 @@ interface WPAlertProps {
 
 const props = defineProps<WPAlertProps>()
 
-const visible = ref(true)
+const visible = ref(false)
 
 const closeAlert = () => {
   visible.value = false
+}
+
+const showAlert = () => {
+  visible.value = true
 }
 
 if (props.duration) {
@@ -28,21 +34,53 @@ if (props.duration) {
 
 watch(
   () => props.message,
-  () => {
-    visible.value = true
+  (newMessage) => {
+    if (newMessage) {
+      showAlert()
+    }
   }
 )
+
+onMounted(() => {
+  if (props.message) {
+    showAlert()
+  }
+})
+
+// Transition hooks
+const beforeEnter = (el: Element) => {
+  ;(el as HTMLElement).style.opacity = '0'
+}
+
+const enter = (el: Element, done: () => void) => {
+  const element = el as HTMLElement
+  element.offsetHeight // trigger reflow
+  element.style.transition = 'opacity 0.5s'
+  element.style.opacity = '1'
+  done()
+}
+
+const leave = (el: Element, done: () => void) => {
+  const element = el as HTMLElement
+  element.style.transition = 'opacity 0.5s'
+  element.style.opacity = '0'
+  done()
+}
 </script>
 
 <style scoped>
 .wp-alert {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   padding: 1rem 1.5rem;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0;
+  margin: 1rem;
   font-size: 1rem;
+  z-index: 1000; /* Ensure it's above other content */
 }
 
 .wp-alert__message {
@@ -76,5 +114,14 @@ watch(
 .wp-alert--warning {
   background-color: #fcf8e3;
   color: var(--warning);
+}
+
+/* Transition styles */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
 }
 </style>
