@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
-
 interface WPActionLinkProps {
   href?: string
   disabled?: boolean

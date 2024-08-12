@@ -22,6 +22,7 @@ Technologies used in this project are:
 - Vue router
 - Vitest
 - v8
+- Google Cloud Platform
   (Technologies used will be updated here as and when added).
 
 ## Installation
@@ -96,7 +97,7 @@ For formatting the code (the project uses prettier), run:
 
 **Essential Features:**
 
-- Login/Signup Page
+- Login/Signup Page - in progress - integration with GCP Identity platform completed.
 
 **Optional Features**
 

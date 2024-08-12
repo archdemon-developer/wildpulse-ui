@@ -21,33 +21,23 @@ import { WPForgotPasswordForm, WPLoginForm, WPSignUpForm } from '@/components'
 const isSignUp = ref(false)
 const isForgotPassword = ref(false)
 
-const toggleForgotPassword = () => {
+const toggleForgotPassword = (): void => {
   isForgotPassword.value = !isForgotPassword.value
-  if (isForgotPassword.value) {
-    resetAllStates()
-  }
 }
 
-const goBack = () => {
+const goBack = (): void => {
   isForgotPassword.value = false
   isSignUp.value = false
-  resetAllStates()
 }
 
-const toggleSignUp = () => {
+const toggleSignUp = (): void => {
   isSignUp.value = !isSignUp.value
-  resetAllStates()
-}
-
-const resetAllStates = () => {
-  // The reset logic could be moved to individual components
 }
 </script>
 
 <style scoped>
 .wp-start {
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
 }

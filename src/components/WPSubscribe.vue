@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { WPButton, WPTextInput } from '@/components'
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 
 const subscriptionEmail = ref('')
 

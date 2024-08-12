@@ -17,6 +17,7 @@ import WPActionLink from './WPActionLink.vue'
 import WPLoginForm from './WPLoginForm.vue'
 import WPSignUpForm from './WPSignUpForm.vue'
 import WPForgotPasswordForm from './WPForgotPasswordForm.vue'
+import WPAlert from './WPAlert.vue'
 
 export {
   WPHeader,
@@ -37,5 +38,6 @@ export {
   WPActionLink,
   WPLoginForm,
   WPSignUpForm,
-  WPForgotPasswordForm
+  WPForgotPasswordForm,
+  WPAlert
 }

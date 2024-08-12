@@ -4,19 +4,37 @@
       <h1>Welcome Back!</h1>
       <p>Pick up your journey from where you left off.</p>
     </div>
+    <WPAlert v-if="alert.message" :message="alert.message" :type="alert.type" />
     <form @submit.prevent="handleSubmit" class="wp-sign-in__form">
-      <WPTextInput v-model="usernameOrEmail" type="text" placeholder="Enter username or email*" />
-      <WPTextInput v-model="password" type="password" placeholder="Enter password*" />
+      <WPTextInput
+        v-model="formData.email"
+        type="text"
+        placeholder="Enter your email*"
+        :error="errors.email"
+      />
+      <div class="password-field">
+        <WPTextInput
+          v-model="formData.password"
+          :type="passwordVisibility ? 'text' : 'password'"
+          placeholder="Enter your password*"
+          :error="errors.password"
+        />
+        <Icon
+          :icon="passwordVisibility ? 'mdi:eye' : 'mdi:eye-off'"
+          class="password-toggle-icon"
+          @click="togglePasswordVisibility"
+        />
+      </div>
       <div class="wp-sign-in__options">
         <div class="wp-sign-in__remember">
-          <input type="checkbox" id="rememberMe" v-model="rememberMe" />
+          <input type="checkbox" id="rememberMe" v-model="formData.shouldRememberMe" />
           <label for="rememberMe">Remember Me</label>
         </div>
         <WPActionLink @click="$emit('forgot-password')">Forgot Password?</WPActionLink>
       </div>
-      <WPButton type="submit">Login</WPButton>
+      <WPButton type="submit" :loading="isLoading">Login</WPButton>
       <div class="wp-sign-in__or">
-        <span>or</span>
+        <span>OR</span>
       </div>
       <p class="wp-sign-in__link">
         Don't have an account? <WPActionLink @click="$emit('sign-up')">Sign Up</WPActionLink>
@@ -26,19 +44,68 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { WPTextInput, WPButton, WPActionLink } from '@/components'
+import { useForm } from '@/composables/useForm'
+import { WPTextInput, WPButton, WPActionLink, WPAlert } from '@/components'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+import { reactive, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 
-const usernameOrEmail = ref('')
-const password = ref('')
-const rememberMe = ref(false)
+interface FormData {
+  email: string
+  password: string
+  shouldRememberMe: boolean
+}
 
-const handleSubmit = () => {
-  console.log('Submitted:', {
-    usernameOrEmail: usernameOrEmail.value,
-    password: password.value,
-    rememberMe: rememberMe.value
-  })
+const passwordVisibility = ref(false)
+
+const togglePasswordVisibility = () => {
+  passwordVisibility.value = !passwordVisibility.value
+}
+
+const { formData, errors, resetForm, clearErrors, isValidEmail } = useForm<FormData>({
+  email: '',
+  password: '',
+  shouldRememberMe: false
+})
+
+const alert = reactive({
+  message: '',
+  type: 'error' as 'success' | 'error' | 'info' | 'warning'
+})
+
+const authStore = useAuthStore()
+const { isLoading } = storeToRefs(authStore)
+const { login } = authStore
+
+const handleSubmit = async () => {
+  clearErrors()
+  validateForm()
+
+  if (Object.values(errors).every((error) => !error)) {
+    try {
+      await login(formData.email, formData.password)
+      alert.message = 'Login Successful'
+      alert.type = 'success'
+    } catch (err: any) {
+      alert.message = err.message || 'Login failed.'
+      alert.type = 'error'
+    } finally {
+      resetForm()
+    }
+  }
+}
+
+const validateForm = () => {
+  if (!formData.email) {
+    errors.email = 'Email is required.'
+  } else if (!isValidEmail(formData.email)) {
+    errors.email = 'Please enter a valid email'
+  }
+
+  if (!formData.password) {
+    errors.password = 'Password is required.'
+  }
 }
 </script>
 
@@ -117,6 +184,24 @@ const handleSubmit = () => {
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 0.5rem;
+  cursor: pointer;
+  font-size: 1.25rem;
 }
 
 .wp-sign-in__or::before,

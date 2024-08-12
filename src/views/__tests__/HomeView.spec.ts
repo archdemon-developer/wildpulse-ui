@@ -36,7 +36,7 @@ describe('wildpulse home page view tests', () => {
     const router = createRouter({
       history: createWebHistory(),
       routes: [
-        { path: '/login', name: 'login', redirect: '/' },
+        { path: '/start', name: 'start', redirect: '/start' },
         { path: '/forums', name: 'forums', redirect: '/forums' }
       ]
     })
@@ -54,7 +54,7 @@ describe('wildpulse home page view tests', () => {
 
     const wpHero = wrapper.findComponent(WPHero)
     await wpHero.props('primaryAction')()
-    expect(push).toHaveBeenCalledWith('/login')
+    expect(push).toHaveBeenCalledWith('/start')
 
     await wpHero.props('secondaryAction')()
     expect(push).toHaveBeenCalledWith('/forums')
@@ -86,7 +86,7 @@ describe('wildpulse home page view tests', () => {
           WPHero,
           WPFeatureCard,
           WPSubscribe,
-          WPFooter // Include WPFooter in the global components
+          WPFooter
         }
       },
       props: {

@@ -16,8 +16,8 @@
         v-for="feature in features"
         :key="feature.id"
         :header="feature.header"
-        :imgSrc="feature.imgSrc"
-        :imgAlt="feature.imgAlt"
+        :img-src="feature.imgSrc"
+        :img-alt="feature.imgAlt"
         :content="feature.content"
         :actions="feature.actions"
       />
@@ -26,7 +26,7 @@
       <WPSubscribe :header="subscribe.header" :description="subscribe.description" />
     </section>
     <footer class="wp-footer">
-      <WPFooter :year="footer.year" :footerText="footer.footerText" :links="footer.links" />
+      <WPFooter :year="footer.year" :footer-text="footer.footerText" :links="footer.links" />
     </footer>
   </div>
 </template>
@@ -94,7 +94,7 @@ const hero: Hero = {
   primaryButtonText: 'Start now',
   secondaryButtonText: 'Checkout the Forums',
   backgroundSource: heroVideo,
-  primaryAction: () => routeTo('/login'),
+  primaryAction: () => routeTo('/start'),
   secondaryAction: () => routeTo('/forums')
 }
 
