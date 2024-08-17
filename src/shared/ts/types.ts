@@ -20,6 +20,19 @@ interface Route {
   name: string
 }
 
+export interface Toast {
+  id: number
+  title?: string
+  message?: string
+  duration?: number
+  position?: ToastPosition
+  type?: ToastType
+}
+
 type ColorVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'green' | 'dark' | 'light'
 
-export type { LinkAction, ColorVariant, Hero, Route }
+type ToastPosition = 'top-right' | 'bottom-right' | 'top-left' | 'bottom-left'
+
+type ToastType = 'warning' | 'info' | 'success' | 'danger'
+
+export type { LinkAction, ColorVariant, Hero, Route, ToastPosition, ToastType }

@@ -9,9 +9,16 @@ import WPCard from './WPCard.vue'
 import WPAboutCard from './WPAboutCard.vue'
 import WPFeatureCard from './WPFeatureCard.vue'
 import WPImage from './WPImage.vue'
-import WPInput from './WPInput.vue'
+import WPTextInput from './WPTextInput.vue'
+import WPCheckboxInput from './WPCheckboxInput.vue'
 import WPSubscribe from './WPSubscribe.vue'
 import WPFooter from './WPFooter.vue'
+import WPActionLink from './WPActionLink.vue'
+import WPSignInForm from './WPSignInForm.vue'
+import WPSignUpForm from './WPSignUpForm.vue'
+import WPForgotPasswordForm from './WPForgotPasswordForm.vue'
+import WPToast from './WPToast.vue'
+import WPToastContainer from './WPToastContainer.vue'
 
 export {
   WPHeader,
@@ -25,7 +32,14 @@ export {
   WPAboutCard,
   WPFeatureCard,
   WPImage,
-  WPInput,
+  WPTextInput,
+  WPCheckboxInput,
   WPSubscribe,
-  WPFooter
+  WPFooter,
+  WPActionLink,
+  WPForgotPasswordForm,
+  WPSignInForm,
+  WPSignUpForm,
+  WPToast,
+  WPToastContainer
 }

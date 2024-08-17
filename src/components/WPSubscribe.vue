@@ -3,20 +3,32 @@
     <h1 class="wp-subscribe__header">{{ props.header }}</h1>
     <div class="wp-subscribe__divider"></div>
     <h3 class="wp-subscribe__description">{{ props.description }}</h3>
-    <form class="wp-subscribe-form" @submit.prevent="subscribeUser">
+    <div class="wp-subscribe-form">
       <div class="wp-subscribe-form__input">
-        <WPInput type="email" placeholder="Enter your email" />
-        <WPButton type="submit">Subscribe</WPButton>
+        <WPTextInput
+          :model-value="subscriptionEmail"
+          @change="updateSubscriptionEmail"
+          type="email"
+          placeholder="Enter your email"
+        />
+        <WPButton type="submit" @click="subscribeUser">Subscribe</WPButton>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { WPButton, WPInput } from '@/components'
+import { WPButton, WPTextInput } from '@/components'
+import { ref } from 'vue'
 
-const subscribeUser = (event: Event): void => {
-  console.log(event)
+const subscriptionEmail = ref('')
+
+const updateSubscriptionEmail = (value: string) => {
+  subscriptionEmail.value = value
+}
+
+const subscribeUser = (): void => {
+  console.log(subscriptionEmail.value)
 }
 
 interface SubscribeProps {
@@ -51,8 +63,8 @@ const props: SubscribeProps = defineProps<SubscribeProps>()
 
 .wp-subscribe-form {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .wp-subscribe-form__input {

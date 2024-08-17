@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import WPSubscribe from '@/components/WPSubscribe.vue'
 import WPButton from '@/components/WPButton.vue'
-import WPInput from '@/components/WPInput.vue'
+import WPTextInput from '@/components/WPTextInput.vue'
 
 describe('wildpulse subscribe component tests', () => {
   const subscribeProps = {
@@ -29,7 +29,7 @@ describe('wildpulse subscribe component tests', () => {
       props: subscribeProps
     })
 
-    const wpInput = wrapper.findComponent(WPInput)
+    const wpInput = wrapper.findComponent(WPTextInput)
     expect(wpInput.exists()).toBe(true)
     expect(wpInput.props('type')).toBe('email')
 
@@ -50,8 +50,8 @@ describe('wildpulse subscribe component tests', () => {
       }
     })
 
-    const form = wrapper.find('.wp-subscribe-form')
-    await form.trigger('submit.prevent')
+    const button = wrapper.findComponent(WPButton)
+    await button.trigger('click')
 
     expect(subscribeUser).toHaveBeenCalled()
   })

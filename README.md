@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" height="300" src="./src/assets/logo.svg">
+  <img width="300" height="300" src="./src/assets/logo.svg" alt="wp-logo-img">
 </p>
 
 > **Note**
@@ -22,6 +22,7 @@ Technologies used in this project are:
 - Vue router
 - Vitest
 - v8
+- Google Cloud Platform
   (Technologies used will be updated here as and when added).
 
 ## Installation
@@ -96,9 +97,9 @@ For formatting the code (the project uses prettier), run:
 
 **Essential Features:**
 
-- Login/Signup Page
+- Login/Signup Page - in progress - integration with GCP Identity platform completed.
 
-**Optional Features**
+**Optional Features:**
 
 - Extend for social media
 
