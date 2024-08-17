@@ -3,29 +3,39 @@
     <label v-if="label" :for="id">{{ label }}</label>
     <div class="wp-text-input__container">
       <input
-        :id="props.id"
+        :id="id"
         :type="inputType"
-        :value="props.modelValue"
-        :placeholder="props.placeholder"
-        :maxlength="props.maxlength"
-        :minlength="props.minlength"
-        :readonly="props.readonly"
-        :disabled="props.disabled"
-        :autocomplete="props.autocomplete"
+        :value="modelValue"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
         @input="handleInput"
         @change="handleChange"
         @blur="handleBlur"
         @focus="handleFocus"
-        :class="{ 'input-error': !!props.error }"
+        :class="{ 'input-error': !!error }"
       />
+      <button
+        v-if="type === 'password'"
+        type="button"
+        class="wp-text-input__toggle"
+        @click="togglePasswordVisibility"
+        :aria-label="passwordToggleLabel"
+      >
+        <Icon :icon="isPasswordVisible ? 'mdi:eye' : 'mdi:eye-off'" />
+      </button>
     </div>
-    <small v-if="props.hint && !props.error" class="wp-text-input__hint">{{ props.hint }}</small>
-    <small v-if="props.error" class="wp-text-input__error">{{ props.error }}</small>
+    <small v-if="hint && !error" class="wp-text-input__hint">{{ hint }}</small>
+    <small v-if="error" class="wp-text-input__error">{{ error }}</small>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 
 type InputType = 'text' | 'email' | 'password'
 
@@ -65,6 +75,14 @@ const isPasswordVisible = ref(false)
 const inputType = computed(() =>
   props.type === 'password' && !isPasswordVisible.value ? 'password' : 'text'
 )
+
+const passwordToggleLabel = computed(() =>
+  isPasswordVisible.value ? 'Hide password' : 'Show password'
+)
+
+const togglePasswordVisibility = () => {
+  isPasswordVisible.value = !isPasswordVisible.value
+}
 
 const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement)?.value || '')

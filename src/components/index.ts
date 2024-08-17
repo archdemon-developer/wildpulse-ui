@@ -14,10 +14,11 @@ import WPCheckboxInput from './WPCheckboxInput.vue'
 import WPSubscribe from './WPSubscribe.vue'
 import WPFooter from './WPFooter.vue'
 import WPActionLink from './WPActionLink.vue'
-import WPLoginForm from './WPLoginForm.vue'
+import WPSignInForm from './WPSignInForm.vue'
 import WPSignUpForm from './WPSignUpForm.vue'
 import WPForgotPasswordForm from './WPForgotPasswordForm.vue'
-import WPAlert from './WPAlert.vue'
+import WPToast from './WPToast.vue'
+import WPToastContainer from './WPToastContainer.vue'
 
 export {
   WPHeader,
@@ -36,8 +37,9 @@ export {
   WPSubscribe,
   WPFooter,
   WPActionLink,
-  WPLoginForm,
-  WPSignUpForm,
   WPForgotPasswordForm,
-  WPAlert
+  WPSignInForm,
+  WPSignUpForm,
+  WPToast,
+  WPToastContainer
 }

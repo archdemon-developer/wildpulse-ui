@@ -6,22 +6,27 @@
   --primary: #06d6a0;
   --primary-dark: #049670;
 
-  --secondary-light: #58adc9;
+  /* Secondary - Blue shades */
+  --secondary-light: #7fc5e8;
   --secondary: #118ab2;
   --secondary-dark: #0c617d;
 
-  --warning-light: #b39247;
+  /* Warning - Yellow/Orange shades */
+  --warning-light: #ffebb2;
   --warning: #ffd166;
-  --warning-dark: #ffdf94;
+  --warning-dark: #b39247;
 
-  --danger-light: #f47e9a;
+  /* Danger - Red shades */
+  --danger-light: #f9a3b1;
   --danger: #ef476f;
   --danger-dark: #a7324e;
 
-  --green-dark: #052935;
-  --green: #073b4c;
-  --green-light: #517682;
+  /* Green shades */
+  --green-light: #7fe8c2;
+  --green: #06d6a0;
+  --green-dark: #049670;
 
+  /* Black and White */
   --black: #000000;
   --black-light: #333333;
 

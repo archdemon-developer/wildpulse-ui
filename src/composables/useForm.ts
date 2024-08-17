@@ -15,7 +15,13 @@ export function useForm<T extends object>(initialState: T) {
   const resetForm = () => {
     const formDataAsObject = formData as Record<keyof T, any>
     Object.keys(formDataAsObject).forEach((key) => {
-      formDataAsObject[key as keyof T] = ''
+      const value = formDataAsObject[key as keyof T]
+      if (typeof value === 'string') {
+        formDataAsObject[key as keyof T] = ''
+      } else if (typeof value === 'boolean') {
+        formDataAsObject[key as keyof T] = false
+      }
+      // Add more conditions if you have other types to handle
     })
     clearErrors()
   }

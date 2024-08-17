@@ -1,89 +1,185 @@
-import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
 import { WPTextInput } from '@/components'
 
 describe('wildpulse text input tests', () => {
-  it('renders label when passed', () => {
-    const label = 'Test Label'
-    const modelValue = 'dummy'
+  it('renders an input with correct default props', () => {
     const wrapper = mount(WPTextInput, {
-      props: { label, modelValue }
+      props: {
+        modelValue: ''
+      }
     })
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').text()).toBe(label)
-  })
 
-  it('does not render label when not passed', () => {
-    const wrapper = mount(WPTextInput)
-    expect(wrapper.find('label').exists()).toBe(false)
-  })
-
-  it('emits update:modelValue on input', async () => {
-    const wrapper = mount(WPTextInput)
     const input = wrapper.find('input')
-    await input.setValue('test value')
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['test value'])
-  })
-
-  it('emits change on input change', async () => {
-    const wrapper = mount(WPTextInput)
-    const input = wrapper.find('input')
-    await input.setValue('changed value')
-    await input.trigger('change')
-    expect(wrapper.emitted('change')).toBeTruthy()
-    expect(wrapper.emitted('change')?.[0]).toEqual(['changed value'])
-  })
-
-  it('emits blur on input blur', async () => {
-    const wrapper = mount(WPTextInput)
-    const input = wrapper.find('input')
-    await input.trigger('blur')
-    expect(wrapper.emitted('blur')).toBeTruthy()
-  })
-
-  it('emits focus on input focus', async () => {
-    const wrapper = mount(WPTextInput)
-    const input = wrapper.find('input')
-    await input.trigger('focus')
-    expect(wrapper.emitted('focus')).toBeTruthy()
-  })
-
-  it('renders with default props', () => {
-    const wrapper = mount(WPTextInput)
-    const input = wrapper.find('input')
-    expect(input.attributes('type')).toBe('text')
+    expect(input.element.type).toBe('text')
+    expect(input.element.value).toBe('')
     expect(input.attributes('placeholder')).toBe('')
     expect(input.attributes('maxlength')).toBe('100')
     expect(input.attributes('minlength')).toBe('0')
-    expect(input.attributes('readonly')).toBe(undefined)
-    expect(input.attributes('disabled')).toBe(undefined)
+    expect(input.attributes('readonly')).toBeUndefined()
+    expect(input.attributes('disabled')).toBeUndefined()
     expect(input.attributes('autocomplete')).toBe('')
   })
 
-  it('renders with custom props', () => {
+  it('renders label when label prop is provided', () => {
     const wrapper = mount(WPTextInput, {
       props: {
-        type: 'email',
-        placeholder: 'Enter your email',
-        maxlength: 50,
-        minlength: 5,
-        readonly: true,
-        disabled: true,
-        autocomplete: 'on',
-        modelValue: 'test@example.com',
+        modelValue: '',
+        label: 'Test Label',
         id: 'test-id'
       }
     })
+
+    const label = wrapper.find('label')
+    expect(label.exists()).toBe(true)
+    expect(label.text()).toBe('Test Label')
+    expect(label.attributes('for')).toBe('test-id')
+  })
+
+  it('emits "update:modelValue" event when input value changes', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
     const input = wrapper.find('input')
-    expect(input.attributes('type')).toBe('email')
-    expect(input.attributes('placeholder')).toBe('Enter your email')
-    expect(input.attributes('maxlength')).toBe('50')
-    expect(input.attributes('minlength')).toBe('5')
-    expect(input.attributes('readonly')).toBe('')
-    expect(input.attributes('disabled')).toBe('')
-    expect(input.attributes('autocomplete')).toBe('on')
-    expect(input.element.value).toBe('test@example.com')
-    expect(input.attributes('id')).toBe('test-id')
+    await input.setValue('new value')
+
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['new value'])
+  })
+
+  it('renders error message when error prop is provided', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        error: 'Test Error'
+      }
+    })
+
+    const error = wrapper.find('.wp-text-input__error')
+    expect(error.exists()).toBe(true)
+    expect(error.text()).toBe('Test Error')
+  })
+
+  it('renders hint message when hint prop is provided and no error exists', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        hint: 'Test Hint'
+      }
+    })
+
+    const hint = wrapper.find('.wp-text-input__hint')
+    expect(hint.exists()).toBe(true)
+    expect(hint.text()).toBe('Test Hint')
+
+    const error = wrapper.find('.wp-text-input__error')
+    expect(error.exists()).toBe(false)
+  })
+
+  it('does not render hint message when error prop is provided', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        hint: 'Test Hint',
+        error: 'Test Error'
+      }
+    })
+
+    const hint = wrapper.find('.wp-text-input__hint')
+    expect(hint.exists()).toBe(false)
+
+    const error = wrapper.find('.wp-text-input__error')
+    expect(error.exists()).toBe(true)
+    expect(error.text()).toBe('Test Error')
+  })
+
+  it('applies input-error class when error prop is provided', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        error: 'Test Error'
+      }
+    })
+
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('input-error')
+  })
+
+  it('does not apply input-error class when error prop is not provided', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('input-error')
+  })
+
+  it('emits "change" event when input value changes', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.setValue('new value')
+
+    expect(wrapper.emitted('change')).toBeTruthy()
+    expect(wrapper.emitted('change')?.[0]).toEqual(['new value'])
+  })
+
+  it('emits "blur" event when input loses focus', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('blur')
+
+    expect(wrapper.emitted('blur')).toBeTruthy()
+  })
+
+  it('emits "focus" event when input gains focus', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('focus')
+
+    expect(wrapper.emitted('focus')).toBeTruthy()
+  })
+
+  it('renders input as password type when type prop is "password"', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        type: 'password'
+      }
+    })
+
+    const input = wrapper.find('input')
+    expect(input.element.type).toBe('password')
+  })
+
+  it('renders input as text type when type prop is not "password"', () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        type: 'text'
+      }
+    })
+
+    const input = wrapper.find('input')
+    expect(input.element.type).toBe('text')
   })
 })

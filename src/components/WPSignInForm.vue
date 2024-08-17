@@ -1,72 +1,66 @@
 <template>
-  <div class="wp-sign-up">
-    <div class="wp-sign-up__header">
-      <h1>Join Us!</h1>
-      <p>Start your journey with us.</p>
+  <div class="wp-sign-in">
+    <div class="wp-sign-in-header">
+      <h1>Welcome Back!</h1>
+      <p>Pick up your journey from where you left off!</p>
     </div>
-    <form class="wp-sign-up-form" @submit.prevent="emitSubmit">
+    <form class="wp-sign-in-form" @submit.prevent="emitSubmit">
       <WPTextInput
         v-model="formData.email"
         type="email"
-        placeholder="Enter your email*"
         :error="errors.email"
-      />
-      <WPTextInput
-        v-model="formData.username"
-        type="text"
-        placeholder="Enter your desired username*"
-        :error="errors.username"
+        placeholder="Enter your Email*"
       />
       <WPTextInput
         v-model="formData.password"
         type="password"
-        placeholder="Enter password*"
         :error="errors.password"
+        placeholder="Enter your password*"
       />
-      <WPTextInput
-        v-model="formData.confirmPassword"
-        type="password"
-        placeholder="Confirm your password*"
-        :error="errors.confirmPassword"
-      />
-      <WPButton type="submit">Sign up</WPButton>
+      <div class="wp-sign-in-misc">
+        <WPCheckboxInput
+          v-model="formData.shouldRememberMe"
+          label="Remember me"
+          id="remember-me-checkbox"
+        />
+        <WPActionLink @click="$emit('forgot-password')">Forgot Password?</WPActionLink>
+      </div>
+      <WPButton type="submit">Log in</WPButton>
     </form>
-    <div class="wp-toggle-sign-in">
+    <div class="wp-toggle-sign-up">
       <div class="wp-or">or</div>
       <span>
-        Already have an account?
-        <WPActionLink @click="$emit('toggle-sign-in')">Log in</WPActionLink>
+        Not an existing user?
+        <WPActionLink @click="$emit('toggle-sign-up')">Sign up</WPActionLink>
       </span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { WPActionLink, WPTextInput } from '@/components'
+import { WPActionLink, WPCheckboxInput, WPTextInput } from '@/components'
 import WPButton from '@/components/WPButton.vue'
 import { useForm } from '@/composables/useForm'
 
-interface SignUpFormData {
+interface SignInFormData {
   email: string
-  username: string
   password: string
-  confirmPassword: string
+  shouldRememberMe: boolean
 }
 
-const { formData, errors, resetForm, clearErrors, isValidEmail } = useForm<SignUpFormData>({
+const { formData, errors, resetForm, clearErrors, isValidEmail } = useForm<SignInFormData>({
   email: '',
-  username: '',
   password: '',
-  confirmPassword: ''
+  shouldRememberMe: false
 })
 
-const emit = defineEmits(['sign-up-submit', 'toggle-sign-in'])
+const emit = defineEmits(['sign-in-submit', 'toggle-sign-up', 'forgot-password'])
 
 const emitSubmit = () => {
   clearErrors()
   validateForm()
   if (Object.values(errors).every((error) => !error)) {
-    emit('sign-up-submit', formData)
+    emit('sign-in-submit', formData)
     resetForm()
   }
 }
@@ -78,45 +72,43 @@ const validateForm = () => {
     errors.email = 'Please enter a valid email'
   }
 
-  if (!formData.username) {
-    errors.username = 'Username is required.'
-  }
-
   if (!formData.password) {
     errors.password = 'Password is required.'
-  }
-
-  if (formData.password !== formData.confirmPassword) {
-    errors.confirmPassword = 'Passwords do not match.'
   }
 }
 </script>
 
 <style scoped>
-.wp-sign-up {
+.wp-sign-in {
   width: 100%;
 }
 
-.wp-sign-up__header {
+.wp-sign-in-header {
   text-align: center;
   margin-bottom: 50px;
 }
 
-.wp-sign-up h1 {
+.wp-sign-in-header h1 {
   font-size: 3rem;
 }
 
-.wp-sign-up p {
+.wp-sign-in-header p {
   font-size: 1.25rem;
 }
 
-.wp-sign-up-form {
+.wp-sign-in-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.wp-toggle-sign-in {
+.wp-sign-in-misc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wp-toggle-sign-up {
   display: flex;
   margin-top: 20px;
   flex-direction: column;

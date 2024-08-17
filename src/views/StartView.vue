@@ -1,44 +1,86 @@
 <template>
   <div class="wp-start">
-    <WPLoginForm
-      v-if="!isForgotPassword && !isSignUp"
+    <WPSignInForm
+      v-if="!isSignUp && !isForgotPassword"
+      @toggle-sign-up="toggleSignUp"
       @forgot-password="toggleForgotPassword"
-      @sign-up="toggleSignUp"
+      @sign-in-submit="handleSignInSubmit"
     />
     <WPSignUpForm
-      v-if="!isForgotPassword && isSignUp"
-      @forgot-password="toggleForgotPassword"
-      @login="toggleSignUp"
+      v-if="isSignUp"
+      @toggle-sign-in="toggleSignIn"
+      @sign-up-submit="handleSignUpSubmit"
     />
-    <WPForgotPasswordForm v-if="isForgotPassword" @go-back="goBack" />
+    <WPForgotPasswordForm
+      v-if="isForgotPassword"
+      @back-to-login="toggleSignIn"
+      @forgot-password-submit="handleForgotPasswordSubmit"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { WPForgotPasswordForm, WPLoginForm, WPSignUpForm } from '@/components'
+import { WPSignInForm, WPSignUpForm, WPForgotPasswordForm } from '@/components'
+
+import { useToastStore } from '@/stores/toast.store'
+
+const toastStore = useToastStore()
 
 const isSignUp = ref(false)
 const isForgotPassword = ref(false)
 
-const toggleForgotPassword = (): void => {
-  isForgotPassword.value = !isForgotPassword.value
+const toggleSignUp = () => {
+  isSignUp.value = true
 }
 
-const goBack = (): void => {
+const toggleSignIn = () => {
+  isSignUp.value = false
   isForgotPassword.value = false
+}
+
+const toggleForgotPassword = () => {
+  isForgotPassword.value = true
   isSignUp.value = false
 }
 
-const toggleSignUp = (): void => {
-  isSignUp.value = !isSignUp.value
+const handleSignUpSubmit = (formData: any) => {
+  toastStore.addToast({
+    type: 'success',
+    duration: 5000,
+    message: 'Sign-up form submitted with data: ' + JSON.stringify(formData),
+    position: 'top-right',
+    title: 'Sign up successful'
+  })
+}
+
+const handleSignInSubmit = (formData: any) => {
+  toastStore.addToast({
+    type: 'success',
+    duration: 5000,
+    message: 'Sign-in form submitted with data: ' + JSON.stringify(formData),
+    position: 'top-right',
+    title: 'Sign in successful'
+  })
+}
+
+const handleForgotPasswordSubmit = (email: string) => {
+  toastStore.addToast({
+    type: 'success',
+    duration: 5000,
+    message: 'Reset link sent to your email: ' + email,
+    position: 'top-right',
+    title: 'Reset link sent successfully'
+  })
 }
 </script>
 
 <style scoped>
 .wp-start {
   display: flex;
-  align-items: center;
+  max-width: 600px;
   justify-content: center;
+  margin: 0 auto;
+  align-items: center;
 }
 </style>
