@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPVideo } from '@/components'
 
-describe('wildpulse video tests', () => {
+describe('WPVideo.vue', () => {
   it('renders video with correct props', () => {
     const wrapper = mount(WPVideo, {
       props: {

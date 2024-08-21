@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import WPFooter from '@/components/WPFooter.vue'
 import type { Route as FooterLink } from '@/shared/ts/types'
 
-describe('wildpulse footer vue tests', () => {
+describe('WPFooter.vue', () => {
   it('renders correctly with given props', () => {
     const wrapper = mount(WPFooter, {
       props: {

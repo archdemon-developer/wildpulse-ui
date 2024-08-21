@@ -19,7 +19,7 @@ const router = createRouter({
   routes: [{ path: '/', component: { template: '<div>Home</div>' } }]
 })
 
-describe('wildpulse feature card tests', () => {
+describe('WPFeatureCard.vue', () => {
   beforeEach(() => {
     router.push('/')
     router.isReady()

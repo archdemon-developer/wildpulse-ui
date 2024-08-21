@@ -66,7 +66,7 @@ const emitSubmit = () => {
   clearErrors()
   validateForm()
   if (Object.values(errors).every((error) => !error)) {
-    emit('sign-up-submit', formData)
+    emit('sign-up-submit', { ...formData })
     resetForm()
   }
 }

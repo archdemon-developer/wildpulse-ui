@@ -9,6 +9,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:watch": "vitest",
     "build-only": "vite build",
     "coverage": "vitest run --coverage",
     "type-check": "vue-tsc --build --force",

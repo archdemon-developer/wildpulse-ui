@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPTextInput } from '@/components'
 
-describe('wildpulse text input tests', () => {
+describe('WPTextInput.vue', () => {
   it('renders an input with correct default props', () => {
     const wrapper = mount(WPTextInput, {
       props: {

@@ -59,8 +59,9 @@ const emit = defineEmits(['sign-in-submit', 'toggle-sign-up', 'forgot-password']
 const emitSubmit = () => {
   clearErrors()
   validateForm()
+
   if (Object.values(errors).every((error) => !error)) {
-    emit('sign-in-submit', formData)
+    emit('sign-in-submit', { ...formData })
     resetForm()
   }
 }

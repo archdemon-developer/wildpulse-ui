@@ -4,7 +4,7 @@ import WPSubscribe from '@/components/WPSubscribe.vue'
 import WPButton from '@/components/WPButton.vue'
 import WPTextInput from '@/components/WPTextInput.vue'
 
-describe('wildpulse subscribe component tests', () => {
+describe('WPSubscribe.vue', () => {
   const subscribeProps = {
     header: 'Subscribe',
     description: 'Get the latest updates and news.'

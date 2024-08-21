@@ -2,7 +2,7 @@ import { mount, shallowMount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import WPActionLink from '@/components/WPActionLink.vue'
 
-describe('wildpulse action link tests', () => {
+describe('WPActionLink.vue', () => {
   it('renders correctly with default props', () => {
     const wrapper = shallowMount(WPActionLink, {
       props: { href: 'https://example.com' },

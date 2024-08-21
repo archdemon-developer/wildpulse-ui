@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPCheckboxInput } from '@/components'
 
-describe('wildpulse checkbox input tests', () => {
+describe('WPCheckboxInput.vue', () => {
   it('renders correctly with default props', () => {
     const wrapper = mount(WPCheckboxInput, {
       props: {

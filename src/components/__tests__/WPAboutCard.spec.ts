@@ -4,7 +4,7 @@ import { WPAboutCard, WPNavLink } from '@/components'
 import type { LinkAction } from '@/shared/ts/types'
 import router from '@/router'
 
-describe('wildpulse about card tests', () => {
+describe('WPAboutCard.vue', () => {
   it('renders header slot content', () => {
     const wrapper = mount(WPAboutCard, {
       props: {

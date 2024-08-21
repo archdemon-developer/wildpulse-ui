@@ -7,7 +7,7 @@ import WPButton from '@/components/WPButton.vue'
 import WPVideo from '@/components/WPVideo.vue'
 import { describe, expect, it, vi } from 'vitest'
 
-describe('wildpulse hero section tests', () => {
+describe('WPHero.vue', () => {
   const propsData = {
     primaryAction: vi.fn(),
     secondaryAction: vi.fn(),

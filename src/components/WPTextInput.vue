@@ -17,6 +17,7 @@
         @blur="handleBlur"
         @focus="handleFocus"
         :class="{ 'input-error': !!error }"
+        :aria-invalid="!!error"
       />
       <button
         v-if="type === 'password'"
@@ -72,9 +73,15 @@ const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
 
 const isPasswordVisible = ref(false)
 
-const inputType = computed(() =>
-  props.type === 'password' && !isPasswordVisible.value ? 'password' : 'text'
-)
+const inputType = computed(() => {
+  if (props.type === 'password' && !isPasswordVisible.value) {
+    return 'password'
+  } else if (props.type !== 'password') {
+    return props.type
+  } else {
+    return 'text'
+  }
+})
 
 const passwordToggleLabel = computed(() =>
   isPasswordVisible.value ? 'Hide password' : 'Show password'

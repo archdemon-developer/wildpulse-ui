@@ -21,7 +21,6 @@ export function useForm<T extends object>(initialState: T) {
       } else if (typeof value === 'boolean') {
         formDataAsObject[key as keyof T] = false
       }
-      // Add more conditions if you have other types to handle
     })
     clearErrors()
   }

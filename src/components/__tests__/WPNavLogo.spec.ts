@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 
 const LOGO_FILE_NAME = 'wplogo-nav.png'
 
-describe('wildpulse navlogo tests', () => {
+describe('WPNavLogo.vue', () => {
   const wrapper = mount(WPNavLogo, {
     global: {
       plugins: [router],
