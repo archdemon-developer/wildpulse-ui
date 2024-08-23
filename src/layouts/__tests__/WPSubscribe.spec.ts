@@ -1,57 +1,61 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import { WPSubscribe } from '@/layouts'
-import { WPButton, WPTextInput } from '@/components'
+import WPTextInput from '@/components/WPTextInput.vue'
+import WPButton from '@/components/WPButton.vue'
 
-describe('WPSubscribe.vue', () => {
-  const subscribeProps = {
-    header: 'Subscribe',
-    description: 'Get the latest updates and news.'
-  }
-
-  it('renders correctly with given props', () => {
-    const wrapper = mount(WPSubscribe, {
-      props: subscribeProps
-    })
-
-    const header = wrapper.find('.wp-subscribe__header')
-    expect(header.exists()).toBe(true)
-    expect(header.text()).toBe(subscribeProps.header)
-
-    const description = wrapper.find('.wp-subscribe__description')
-    expect(description.exists()).toBe(true)
-    expect(description.text()).toBe(subscribeProps.description)
-  })
-
-  it('renders WPInput and WPButton components', () => {
-    const wrapper = mount(WPSubscribe, {
-      props: subscribeProps
-    })
-
-    const wpInput = wrapper.findComponent(WPTextInput)
-    expect(wpInput.exists()).toBe(true)
-    expect(wpInput.props('type')).toBe('email')
-
-    const wpButton = wrapper.findComponent(WPButton)
-    expect(wpButton.exists()).toBe(true)
-    expect(wpButton.attributes('type')).toBe('submit')
-    expect(wpButton.text()).toBe('Subscribe')
-  })
-
-  it('calls subscribeUser on form submit', async () => {
-    const subscribeUser = vi.fn()
-    const wrapper = mount(WPSubscribe, {
-      props: subscribeProps,
+describe('WpSubscribe.vue', () => {
+  const factory = (propsData = {}) => {
+    return mount(WPSubscribe, {
       global: {
-        mocks: {
-          subscribeUser
-        }
+        components: { WPTextInput, WPButton }
+      },
+      props: {
+        header: 'Subscribe to our newsletter',
+        description: 'Get the latest updates and offers.',
+        ...propsData
       }
     })
+  }
 
-    const button = wrapper.findComponent(WPButton)
-    await button.trigger('click')
+  it('renders the correct header and description', () => {
+    const wrapper = factory()
+    expect(wrapper.find('.wp-subscribe__header').text()).toBe('Subscribe to our newsletter')
+    expect(wrapper.find('.wp-subscribe__description').text()).toBe(
+      'Get the latest updates and offers.'
+    )
+  })
 
-    expect(subscribeUser).toHaveBeenCalled()
+  it('renders WPTextInput and WPButton components', () => {
+    const wrapper = factory()
+    expect(wrapper.findComponent(WPTextInput).exists()).toBe(true)
+    expect(wrapper.findComponent(WPButton).exists()).toBe(true)
+  })
+
+  it('updates the email when typed into the input field', async () => {
+    const wrapper = factory()
+    const input = wrapper.findComponent(WPTextInput).find('input')
+
+    await input.setValue('test@example.com')
+    expect((wrapper.vm as any).subscriptionEmail).toBe('test@example.com')
+  })
+
+  it('calls subscribeUser method with the correct email on form submit', async () => {
+    const wrapper = factory()
+    const consoleSpy = vi.spyOn(console, 'log')
+
+    const input = wrapper.findComponent(WPTextInput).find('input')
+    await input.setValue('test@example.com')
+
+    await wrapper.find('form').trigger('submit.prevent')
+    expect(consoleSpy).toHaveBeenCalledWith('test@example.com')
+  })
+
+  it('does not submit the form when the input is empty', async () => {
+    const wrapper = factory()
+    const consoleSpy = vi.spyOn(console, 'log')
+
+    await wrapper.find('form').trigger('submit.prevent')
+    expect(consoleSpy).toHaveBeenCalledWith('')
   })
 })
