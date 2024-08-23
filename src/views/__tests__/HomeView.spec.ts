@@ -5,7 +5,8 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import { HomeView } from '@/views'
 import { createRouter, createWebHistory } from 'vue-router'
-import { WPHero, WPFeatureCard, WPSubscribe, WPFooter } from '@/components'
+import { WPFooter } from '@/components'
+import { WPHero, WPFeatureCard, WPSubscribe } from '@/layouts'
 
 describe('wildpulse home page view tests', () => {
   it('renders WPHero component with correct props', () => {

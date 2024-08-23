@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPTextInput } from '@/components'
 
-describe('wildpulse text input tests', () => {
+describe('WPTextInput.vue', () => {
   it('renders an input with correct default props', () => {
     const wrapper = mount(WPTextInput, {
       props: {
@@ -48,6 +48,39 @@ describe('wildpulse text input tests', () => {
 
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['new value'])
+  })
+
+  it('emits "update:modelValue" event with empty input on empty', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.setValue('')
+
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([''])
+  })
+
+  it('toggles password visibility on click of the password toggle icon', async () => {
+    const wrapper = mount(WPTextInput, {
+      props: {
+        modelValue: '',
+        label: 'Test Label',
+        type: 'password',
+        id: 'test-id'
+      }
+    })
+
+    const input = wrapper.find('input')
+    const toggleButton = wrapper.find('.wp-text-input__toggle')
+    await toggleButton.trigger('click')
+
+    expect(input.attributes('type')).toBe('text')
+    await toggleButton.trigger('click')
+    expect(input.attributes('type')).toBe('password')
   })
 
   it('renders error message when error prop is provided', () => {

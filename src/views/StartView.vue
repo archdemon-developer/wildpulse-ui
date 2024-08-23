@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { WPSignInForm, WPSignUpForm, WPForgotPasswordForm } from '@/components'
+import { WPSignInForm, WPSignUpForm, WPForgotPasswordForm } from '@/layouts'
 
 import { useToastStore } from '@/stores/toast.store'
 

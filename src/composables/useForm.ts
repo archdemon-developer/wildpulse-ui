@@ -20,14 +20,16 @@ export function useForm<T extends object>(initialState: T) {
         formDataAsObject[key as keyof T] = ''
       } else if (typeof value === 'boolean') {
         formDataAsObject[key as keyof T] = false
+      } else {
+        formDataAsObject[key as keyof T] = null
       }
-      // Add more conditions if you have other types to handle
     })
     clearErrors()
   }
 
   const isValidEmail = (email: string) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailPattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return emailPattern.test(email)
   }
 

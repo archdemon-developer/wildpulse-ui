@@ -2,12 +2,12 @@
  * @vitest-environment happy-dom
  */
 import { mount } from '@vue/test-utils'
-import WPNavigation from '@/components/WPNavigation.vue'
-import WPNavLink from '@/components/WPNavLink.vue'
+import { WPNavigation } from '@/layouts'
+import { WPNavLink } from '@/components'
 import { describe, expect, it } from 'vitest'
 import router from '@/router'
 
-describe('wildpulse navigation bar tests', () => {
+describe('WPNavigation.vue', () => {
   it('renders navigation links for each route', () => {
     const wrapper = mount(WPNavigation, {
       props: {

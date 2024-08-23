@@ -28,4 +28,8 @@ coverage
 .env*
 *.sw?
 
+.vitest.config.ts*
+
+vitest.config.ts.*
+
 *.tsbuildinfo

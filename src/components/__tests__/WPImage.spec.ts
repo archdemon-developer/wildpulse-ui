@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import WPImage from '@/components/WPImage.vue'
 
-describe('wildpulse image tests', () => {
+describe('WPImage.vue', () => {
   it('renders with required props', () => {
     const wrapper = mount(WPImage, {
       props: {

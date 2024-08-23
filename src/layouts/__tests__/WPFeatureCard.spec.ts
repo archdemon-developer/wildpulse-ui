@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import WPFeatureCard from '@/components/WPFeatureCard.vue'
+import { WPFeatureCard } from '@/layouts'
 import { WPButton } from '@/components'
 import { createRouter, createWebHistory } from 'vue-router'
 import { nextTick } from 'vue'
@@ -19,7 +19,7 @@ const router = createRouter({
   routes: [{ path: '/', component: { template: '<div>Home</div>' } }]
 })
 
-describe('wildpulse feature card tests', () => {
+describe('WPFeatureCard.vue', () => {
   beforeEach(() => {
     router.push('/')
     router.isReady()

@@ -4,8 +4,9 @@
 import { mount } from '@vue/test-utils'
 import WPButton from '@/components/WPButton.vue'
 import { describe, expect, it, vi } from 'vitest'
+import { Icon } from '@iconify/vue'
 
-describe('wildpulse button tests', () => {
+describe('WPButton.vue', () => {
   it('emits click event when clicked', async () => {
     const wrapper = mount(WPButton)
     await wrapper.trigger('click')
@@ -89,5 +90,17 @@ describe('wildpulse button tests', () => {
     })
 
     expect(wrapper.find('.wp-button__spinner').exists()).toBe(true)
+  })
+
+  it('displays icon when icon prop is passed', async () => {
+    const wrapper = mount(WPButton, {
+      props: {
+        type: 'button',
+        click: vi.fn(),
+        icon: 'mdi:dangerous'
+      }
+    })
+
+    expect(wrapper.findComponent(Icon).exists()).toBeTruthy()
   })
 })

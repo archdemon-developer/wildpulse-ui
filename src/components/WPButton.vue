@@ -13,7 +13,7 @@
     <template v-if="props.loading">
       <span class="wp-button__spinner"></span>
     </template>
-    <i v-if="icon" :class="['wp-button__icon', icon]"></i>
+    <Icon v-if="icon" :icon="icon" :class="['wp-button__icon']" />
     <slot></slot>
   </button>
 </template>
@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import type { ColorVariant } from '@/shared/ts/types'
 import { computed } from 'vue'
+import { Icon } from '@iconify/vue'
 
 type ButtonSize = 'xs' | 'md' | 'lg'
 

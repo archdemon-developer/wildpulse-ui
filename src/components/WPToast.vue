@@ -28,7 +28,7 @@ import type { Toast as ToastProps } from '@/shared/ts/types'
 const props = defineProps<ToastProps>()
 const emit = defineEmits(['close'])
 const isVisible = ref(true)
-let timer: ReturnType<typeof setTimeout> | null = null
+let timer: ReturnType<typeof setTimeout>
 
 const toastPosition = computed(() => 'wp-toast__' + (props.position ? props.position : 'top-right'))
 
@@ -55,7 +55,7 @@ const startTimer = () => {
 }
 
 const pauseTimer = () => {
-  if (timer) clearTimeout(timer)
+  clearTimeout(timer)
 }
 
 const closeToast = () => {
@@ -68,7 +68,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (timer) clearTimeout(timer)
+  clearTimeout(timer)
 })
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WPHeader } from '@/components'
+import { WPHeader } from '@/layouts'
 import { RouterView } from 'vue-router'
 import { WPToastContainer } from '@/components'
 import type { Route } from '@/shared/ts/types'

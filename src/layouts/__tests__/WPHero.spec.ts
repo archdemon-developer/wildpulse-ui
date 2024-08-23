@@ -2,12 +2,11 @@
  * @vitest-environment happy-dom
  */
 import { mount } from '@vue/test-utils'
-import WPHero from '@/components/WPHero.vue'
-import WPButton from '@/components/WPButton.vue'
-import WPVideo from '@/components/WPVideo.vue'
+import { WPHero } from '@/layouts'
+import { WPButton, WPVideo } from '@/components'
 import { describe, expect, it, vi } from 'vitest'
 
-describe('wildpulse hero section tests', () => {
+describe('WPHero.vue', () => {
   const propsData = {
     primaryAction: vi.fn(),
     secondaryAction: vi.fn(),

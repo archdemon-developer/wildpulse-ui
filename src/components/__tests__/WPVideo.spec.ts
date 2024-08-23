@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { WPVideo } from '@/components'
 
-describe('wildpulse video tests', () => {
+describe('WPVideo.vue', () => {
   it('renders video with correct props', () => {
     const wrapper = mount(WPVideo, {
       props: {
@@ -19,7 +19,7 @@ describe('wildpulse video tests', () => {
     })
 
     const video = wrapper.find('video')
-    console.log(video.attributes())
+
     expect(video.exists()).toBe(true)
     expect(video.attributes('autoplay')).toBeDefined()
     expect(video.attributes('loop')).toBeDefined()
