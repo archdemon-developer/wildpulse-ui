@@ -1,8 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
-import WPSubscribe from '@/components/WPSubscribe.vue'
-import WPButton from '@/components/WPButton.vue'
-import WPTextInput from '@/components/WPTextInput.vue'
+import { WPSubscribe } from '@/layouts'
+import { WPButton, WPTextInput } from '@/components'
 
 describe('WPSubscribe.vue', () => {
   const subscribeProps = {

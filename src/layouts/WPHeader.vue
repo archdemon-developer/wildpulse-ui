@@ -6,7 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { WPNavLogo, WPNavigation } from '@/components'
+import { WPNavLogo } from '@/components'
+import { WPNavigation } from '@/layouts'
 import type { Route } from '@/shared/ts/types'
 
 interface HeaderProps {

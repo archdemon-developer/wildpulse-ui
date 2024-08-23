@@ -1,7 +1,8 @@
 /**
  * @vitest-environment happy-dom
  */
-import { WPHeader, WPNavigation, WPNavLogo } from '@/components'
+import { WPHeader, WPNavigation } from '@/layouts'
+import { WPNavLogo } from '@/components'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 

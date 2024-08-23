@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { WPActionLink, WPButton, WPSignUpForm, WPTextInput } from '@/components'
+import { WPActionLink, WPButton, WPTextInput } from '@/components'
+import { WPSignUpForm } from '@/layouts'
 
 describe('WPSignUpForm.vue', () => {
   it('renders the sign up form with all the fields', () => {

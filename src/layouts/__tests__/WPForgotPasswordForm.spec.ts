@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { WPForgotPasswordForm, WPTextInput, WPButton, WPActionLink } from '@/components'
+import { WPTextInput, WPButton, WPActionLink } from '@/components'
+import { WPForgotPasswordForm } from '@/layouts'
 import { mount } from '@vue/test-utils'
 
 describe('WPForgotPasswordForm.vue', () => {

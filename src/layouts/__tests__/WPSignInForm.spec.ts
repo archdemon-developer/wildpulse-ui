@@ -3,7 +3,8 @@
  */
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { WPActionLink, WPSignInForm, WPTextInput, WPButton, WPCheckboxInput } from '@/components'
+import { WPActionLink, WPTextInput, WPButton, WPCheckboxInput } from '@/components'
+import { WPSignInForm } from '@/layouts'
 
 describe('WPSignInForm.vue', () => {
   it('renders the Sign In form correctly', () => {

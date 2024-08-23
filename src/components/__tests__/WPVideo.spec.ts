@@ -19,7 +19,7 @@ describe('WPVideo.vue', () => {
     })
 
     const video = wrapper.find('video')
-    console.log(video.attributes())
+
     expect(video.exists()).toBe(true)
     expect(video.attributes('autoplay')).toBeDefined()
     expect(video.attributes('loop')).toBeDefined()

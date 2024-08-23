@@ -32,7 +32,8 @@
 </template>
 
 <script setup lang="ts">
-import { WPHero, WPFeatureCard, WPSubscribe, WPFooter } from '@/components'
+import { WPFooter } from '@/components'
+import { WPHero, WPFeatureCard, WPSubscribe } from '@/layouts'
 import heroVideo from '@/assets/wp-connecting-wildlife-bg.mp4'
 import blogImg from '@/assets/wp-card-blog.png'
 import forumImg from '@/assets/wp-card-forums.png'

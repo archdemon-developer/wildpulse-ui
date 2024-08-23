@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import { WPAboutCard, WPNavLink } from '@/components'
+import { WPNavLink } from '@/components'
+import { WPAboutCard } from '@/layouts'
 import type { LinkAction } from '@/shared/ts/types'
 import router from '@/router'
 
