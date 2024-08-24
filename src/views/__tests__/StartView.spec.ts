@@ -112,7 +112,7 @@ describe('WpStart.vue', () => {
     expect(toastStore.addToast).toHaveBeenCalledWith({
       type: 'danger',
       duration: 5000,
-      message: 'Error logging in: email or password incorrect',
+      message: 'Error logging in: Email or Password is incorrect',
       position: 'top-right',
       title: 'Error'
     })
