@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToastStore } from '@/stores/toast.store'
+import { useToastStore } from '@/stores'
 import { WPToast } from '@/components'
 import { storeToRefs } from 'pinia'
 

@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import { StartView } from '@/views'
 import { createTestingPinia } from '@pinia/testing'
-import { useToastStore } from '@/stores/toast.store'
+import { useToastStore, useAuthStore } from '@/stores'
 
 describe('WpStart.vue', () => {
   const factory = () => {
@@ -70,10 +70,9 @@ describe('WpStart.vue', () => {
     expect(toastStore.addToast).toHaveBeenCalledWith({
       type: 'success',
       duration: 5000,
-      message:
-        'Sign-in form submitted with data: {"email":"test@example.com","password":"password"}',
+      message: 'You have logged in successfully',
       position: 'top-right',
-      title: 'Sign in successful'
+      title: 'Successful'
     })
   })
 
@@ -90,10 +89,56 @@ describe('WpStart.vue', () => {
     expect(toastStore.addToast).toHaveBeenCalledWith({
       type: 'success',
       duration: 5000,
-      message:
-        'Sign-up form submitted with data: {"email":"new@example.com","password":"newpassword"}',
+      message: 'Move to login page to login',
       position: 'top-right',
-      title: 'Sign up successful'
+      title: 'Successful'
+    })
+  })
+
+  it('handles sign-in submission error and displays error toast', async () => {
+    const wrapper = factory()
+    const toastStore = useToastStore()
+    const authStore = useAuthStore()
+
+    authStore.login = vi.fn(() => {
+      throw new Error('Login failed')
+    })
+
+    await wrapper.findComponent({ name: 'WPSignInForm' }).vm.$emit('sign-in-submit', {
+      email: 'test@example.com',
+      password: 'wrongpassword'
+    })
+
+    expect(toastStore.addToast).toHaveBeenCalledWith({
+      type: 'danger',
+      duration: 5000,
+      message: 'Error logging in: email or password incorrect',
+      position: 'top-right',
+      title: 'Error'
+    })
+  })
+
+  it('handles sign-up submission error and displays error toast', async () => {
+    const wrapper = factory()
+    const toastStore = useToastStore()
+    const authStore = useAuthStore()
+
+    authStore.signup = vi.fn(() => {
+      throw new Error('Sign-up failed')
+    })
+
+    await wrapper.findComponent({ name: 'WPSignInForm' }).vm.$emit('toggle-sign-up')
+    await wrapper.findComponent({ name: 'WPSignUpForm' }).vm.$emit('sign-up-submit', {
+      email: 'new@example.com',
+      password: 'newpassword'
+    })
+
+    expect(toastStore.addToast).toHaveBeenCalledWith({
+      type: 'danger',
+      duration: 5000,
+      message: 'Error signing up',
+      position: 'top-right',
+      title: 'Error'
     })
   })
 

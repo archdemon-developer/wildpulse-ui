@@ -22,10 +22,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { WPSignInForm, WPSignUpForm, WPForgotPasswordForm } from '@/layouts'
-
-import { useToastStore } from '@/stores/toast.store'
+import { useToastStore, useAuthStore } from '@/stores'
 
 const toastStore = useToastStore()
+const authStore = useAuthStore()
 
 const isSignUp = ref(false)
 const isForgotPassword = ref(false)
@@ -44,24 +44,46 @@ const toggleForgotPassword = () => {
   isSignUp.value = false
 }
 
-const handleSignUpSubmit = (formData: any) => {
-  toastStore.addToast({
-    type: 'success',
-    duration: 5000,
-    message: 'Sign-up form submitted with data: ' + JSON.stringify(formData),
-    position: 'top-right',
-    title: 'Sign up successful'
-  })
+const handleSignUpSubmit = async (formData: any) => {
+  try {
+    await authStore.signup(formData.email, formData.password, formData.username)
+    toastStore.addToast({
+      type: 'success',
+      duration: 5000,
+      message: 'Move to login page to login',
+      position: 'top-right',
+      title: 'Successful'
+    })
+  } catch (err: any) {
+    toastStore.addToast({
+      type: 'danger',
+      duration: 5000,
+      message: 'Error signing up',
+      position: 'top-right',
+      title: 'Error'
+    })
+  }
 }
 
-const handleSignInSubmit = (formData: any) => {
-  toastStore.addToast({
-    type: 'success',
-    duration: 5000,
-    message: 'Sign-in form submitted with data: ' + JSON.stringify(formData),
-    position: 'top-right',
-    title: 'Sign in successful'
-  })
+const handleSignInSubmit = async (formData: any) => {
+  try {
+    await authStore.login(formData.email, formData.password)
+    toastStore.addToast({
+      type: 'success',
+      duration: 5000,
+      message: 'You have logged in successfully',
+      position: 'top-right',
+      title: 'Successful'
+    })
+  } catch (err: any) {
+    toastStore.addToast({
+      type: 'danger',
+      duration: 5000,
+      message: 'Error logging in: Email or Password is incorrect',
+      position: 'top-right',
+      title: 'Error'
+    })
+  }
 }
 
 const handleForgotPasswordSubmit = (email: string) => {
