@@ -8,7 +8,7 @@ import router from './router'
 
 import firebase from 'firebase/compat/app'
 
-import { firebaseConfig } from './shared/ts/gcp.auth'
+import { firebaseConfig } from './config/gcp.auth'
 
 const app = createApp(App)
 
