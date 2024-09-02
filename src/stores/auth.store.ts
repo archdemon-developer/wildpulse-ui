@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password)
       user.value = userCredential.user
+
       await user.value?.updateProfile({ displayName: username })
       await firebase.auth().updateCurrentUser(user.value)
       error.value = null
@@ -54,10 +55,39 @@ export const useAuthStore = defineStore('auth', () => {
 
   const checkAuth = () => {
     firebase.auth().onAuthStateChanged((u) => {
-      user.value = u
-      error.value = null
+      if (u) {
+        user.value = u
+        error.value = null
+      } else {
+        user.value = null
+        error.value = 'User is not authenticated'
+      }
     })
   }
+  
+
+  const getToken = async () => {
+    try {
+      checkAuth()
+      if (user.value) {
+        const tokenResult = await user.value.getIdTokenResult()
+        const currentTime = Date.now() / 1000 
+        const tokenExpiryTime = tokenResult.expirationTime ? new Date(tokenResult.expirationTime).getTime() / 1000 : 0
+        const shouldRefresh = tokenExpiryTime - currentTime < 300
+        if (shouldRefresh) {
+          return await user.value.getIdToken(true)
+        }
+        return await user.value.getIdToken()
+      } else {
+        error.value = 'User is not authenticated'
+      }
+    } catch (err) {
+      error.value = 'Failed to retrieve auth token'
+      console.error(err)
+    }
+    return null
+  }
+  
 
   const isAuthenticated = () => {
     return isLoggedIn.value
@@ -72,6 +102,7 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     logout,
     checkAuth,
+    getToken,
     isAuthenticated
   }
 })

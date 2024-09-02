@@ -23,6 +23,7 @@
 import { ref } from 'vue'
 import { WPSignInForm, WPSignUpForm, WPForgotPasswordForm } from '@/layouts'
 import { useToastStore, useAuthStore } from '@/stores'
+import { useFetch } from '@/composables'
 
 const toastStore = useToastStore()
 const authStore = useAuthStore()
@@ -47,6 +48,16 @@ const toggleForgotPassword = () => {
 const handleSignUpSubmit = async (formData: any) => {
   try {
     await authStore.signup(formData.email, formData.password, formData.username)
+    await useFetch('/wp-users', {
+      method: 'POST',
+      body: {
+        id: authStore.user?.uid,
+        email: formData.email,
+        userName: formData.username,
+        emailVerified: authStore.user?.emailVerified,
+        photoUrl: authStore.user?.photoURL
+      }
+    })
     toastStore.addToast({
       type: 'success',
       duration: 5000,

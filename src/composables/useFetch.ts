@@ -1,4 +1,6 @@
+import { useAuthStore } from '@/stores'
 import { ref } from 'vue'
+import { API_BASE_URL } from '@/shared/ts/variables' // Import the base URL from the config file
 
 type RequestMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 type QueryParams = Record<string, string | number | boolean>
@@ -13,10 +15,12 @@ interface RequestOptions {
   pathVariables?: PathVariables
 }
 
-export const useFetch = (url: string, options: RequestOptions) => {
+export const useFetch = (path: string, options: RequestOptions) => {
   const data = ref<any>(null)
   const error = ref<string | null>(null)
   const loading = ref<boolean>(false)
+
+  const authStore = useAuthStore()
 
   const defaultHeaders: Headers = {
     'Content-Type': 'application/json'
@@ -38,7 +42,7 @@ export const useFetch = (url: string, options: RequestOptions) => {
     error.value = null
     data.value = null
 
-    let requestUrl = url
+    let requestUrl = `${API_BASE_URL}${path}` // Construct the full URL using the base URL and path
     const { method, headers, body, queryParams, pathVariables } = options
 
     if (queryParams) {
@@ -50,10 +54,22 @@ export const useFetch = (url: string, options: RequestOptions) => {
     }
 
     try {
+      // Retrieve the token from the auth store
+      const token = await authStore.getToken()
+
+      // If no token is available, throw an error and do not proceed with the request
+      if (!token) {
+        error.value = 'Authentication failed: No valid token found.'
+        throw new Error('No valid token available')
+      }
+
+      const authHeaders = { Authorization: `Bearer ${token}` }
+
       const response = await fetch(requestUrl, {
         method,
         headers: {
           ...defaultHeaders,
+          ...authHeaders,
           ...headers
         },
         ...(body ? { body: JSON.stringify(body) } : {})
@@ -67,6 +83,7 @@ export const useFetch = (url: string, options: RequestOptions) => {
       data.value = responseData
     } catch (err: any) {
       error.value = err.message
+      throw err
     } finally {
       loading.value = false
     }
